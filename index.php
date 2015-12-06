@@ -18,8 +18,9 @@
   <title>Appartt</title>
 
   <!-- Bootstrap Core CSS -->
-  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet"> 
 
+  <!-- Custom CSS -->
   <!-- Custom CSS -->
   <link href="css/mine.css" rel="stylesheet">
 
