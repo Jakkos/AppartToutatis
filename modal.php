@@ -11,8 +11,8 @@
         <form method="post" action='' name="login_form">
           <p><input type="text" class="span3" name="eid" id="email" placeholder="Email"></p>
           <p><input type="password" class="span3" name="passwd" placeholder="Password"></p>
-          <p><button type="submit" class="btn btn-primary">Sign in</button>
-            <a href="#">Forgot Password?</a>
+          <p><button type="submit" class="btn btn-primary">Connexion</button>
+            <a href="https://www.google.fr/search?q=bonobo&espv=2&biw=1920&bih=955&site=webhp&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjxw_6PosjJAhXLnBoKHSp5BbAQ_AUIBigB">Forgot Password?</a>
           </p>
         </form>
       </div>
