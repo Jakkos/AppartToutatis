@@ -8,7 +8,7 @@
 
  	include("connexion.php");
 
-<<<HEAD
+<<<<<<< HEAD
  	if ($conn) {
  		//echo 'Connexion OK';
  		//$req = "sp_help";
@@ -44,7 +44,7 @@ $result = odbc_exec($conn,$req);
 
 
 
-  while ($data\[] = odbc_fetch_array($result));
+  while ($data[] = odbc_fetch_array($result));
   print_r($data);
 
  
@@ -53,7 +53,7 @@ if ($conn) {
  	echo 'Connexion OK';
  	$req="select NOMRUE from adresse ";
  	$result = odbc_exec($conn, $req);
- 	while ($data\[]=odbc_fetch_array($result));
+ 	while ($data[]=odbc_fetch_array($result));
  	print_r($data);
 >>>>>>> origin/site
  	//$query = file_get_contents("appartements.sql");
@@ -72,5 +72,4 @@ catch(Exception $e)
 	die('Erreur : '.$e->getMessage());
 
 }
-HEAD
 ?>
