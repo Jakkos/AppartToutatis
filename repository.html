@@ -55,6 +55,16 @@ class Utilisateur{
 		
 		return $res->pro_nom;
 	}
+
+	public static function getRoleUser($p,$id)
+	{
+		$requete = $p->prepare("SELECT pro_nom FROM produit where pro_id = :id;");
+		$requete->bindParam('id',$id);
+		$requete->execute();
+		$res = $requete->fetch(PDO::FETCH_OBJ);
+		
+		return $res->pro_nom;
+	}
 	
 
 }
