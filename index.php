@@ -51,7 +51,7 @@
     <!-- Page Features -->
     <div class="row text-center">;
 
-      <?php include('test.php'); ?>
+      <?php include('affich_appart.php'); ?>
 
     </div>
     <hr>
