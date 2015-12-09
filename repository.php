@@ -1,11 +1,15 @@
 <?php
-require_once("config.inc.php");
+
 class Utilisateur{
-	private $idUtilisateur;
-	private $nom;
-	private $prenom;
-	private $mail;
-	private $tel;
+	private $IDUTILISATEUR;
+	private $IDADRESSE;
+	private $NOM;
+	private $PRENOM;
+	private $MAIL;
+	private $TEL;
+	private $PASSWORD;
+	private $ESTOUVERT;
+	private $IDSYSUSER;
 
 	private $role;
 	
@@ -14,14 +18,13 @@ class Utilisateur{
 	
 	}
 	
-	public static function crateUser($p, $username, $password, $email){
-		$requete = $p->prepare("INSERT INTO users (username, password, email)	VALUES(:username, :password, :email)");
-		$requete->bindParam('username', $username);
-		$requete->bindParam('password', $password);
-		$requete->bindParam('email', $email);	
-		$res = $requete->execute();
+	public static function crateUser($conn,$utilisateur,$idadresse, $nom, $prenom, $mail, $tel, $password, $estouvert,$idsysuser){
+		$requete = odbc_exec($conn,"INSERT INTO utilisateur (IDUTILISATEUR,IDADRESSE, NOM,PRENOM,MAIL,TEL,PASSWORD,ESTOUVERT,IDSYSUSER)	
+			VALUES(
+				$utilisateur,$idadresse,'$nom','$prenom','$mail',$tel,'$password',$estouvert,$idsysuser)");
 		
-		return $res;
+		
+		odbc_close($conn);
 	}
 	
 	
