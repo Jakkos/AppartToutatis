@@ -3,7 +3,6 @@
 
 
 <html>
-<?php include("navbar.php"); ?>
 <head>
 
   <meta charset="utf-8">
@@ -15,7 +14,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-  <title>ApparttABITE</title>
+  <title>AppartToutatis</title>
 
   <!-- Bootstrap Core CSS -->
   <link href="css/bootstrap.css" rel="stylesheet"> 
@@ -28,15 +27,13 @@
 </head>
 
 <body>
-
-
-
+  <?php include("navbar.php"); ?>
   <div class="container">
 
     <!-- Jumbotron Header -->
     <header class="jumbotron hero-spacer">
-      <h1>A Warm Welcome!</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
+      <h1>Bievenue sur ApartoutAtis !</h1>
+      <p>Prenez un peu de potion magique et trouvez la location de vos rêves sur AppartoutAtis.</p>
       <p><a class="btn btn-primary btn-large">Call to action!</a>
       </p>
     </header>
@@ -46,14 +43,30 @@
     <!-- Title -->
     <div class="row">
       <div class="col-lg-12">
-        <h3>Latest Features</h3>
+        <h3>Deniers appartements disponibles</h3>
       </div>
     </div>
-  </div>
-  <!-- /.row -->
+    <!-- /.row -->
 
-  <!-- Page Features -->
-  <?php include("affich_appart.php"); ?>
+    <!-- Page Features -->
+    <div class="row text-center">;
+
+      <?php include('test.php'); ?>
+
+    </div>
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+      <div class="row">
+        <div class="col-lg-12">
+          <p>Copyright &copy; Your Website 2014</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+
 </body>
 </html>
 
