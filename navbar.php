@@ -1,11 +1,16 @@
 <?php 
 include ("modal.php") ;
+$dossierCourant = substr(getcwd(),strlen(getcwd())-14,14);
+$path ="";
+if ($dossierCourant != "AppartToutatis"){//csiprojectsite
+  $path = "../";
+} 
 ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <a class="navbar-brand" href="index.php">Appartout'Atis</a>
+    <a class="navbar-brand" href="<?php echo $path;?>index.php">Appartout'Atis</a>
     <ul class="nav navbar-nav" id="access">
       <li>
         <a href="#">Meublés</a>
@@ -18,7 +23,7 @@ include ("modal.php") ;
       </li>
       <?php
       $_SESSION["utilisateur"] = "oui";
-      $_SESSION["role"] = 8;
+      $_SESSION["role"] = 0;
       genererBarreNav();
       ?> 
       <!-- /.navbar-collapse -->
@@ -37,7 +42,11 @@ include ("modal.php") ;
         $type=$_SESSION["role"];
         switch ($type) {
           case '0':
-          # ici ChefAgence
+            if(substr(getcwd(),strlen(getcwd())-14,14) == "administration"){
+              echo "<li><a href='oi_admin.php'>Administration</a></li>";
+            }else{
+              echo "<li><a href='administration/oi_admin.php'>Administration</a></li>";
+            }
           break;
           case '1':
           # ici EmployeAgence
