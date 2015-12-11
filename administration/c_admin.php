@@ -1,5 +1,7 @@
 <?php
 include 'dynamic.js';
+include 'requete_admin.php';
+
 
 	function put_header(){
 		echo <<<END
@@ -71,26 +73,96 @@ END;
 END;
 	}
 	
-	function onglet_employe(){
+	function onglet_employe($conn){
 		echo <<<END
-			<div id="emp" class="container" style="display:none;">
+			<div id="emp" class="container" style="display:block;">
 				<div class="row">
 					<div class="col-md-8" style="border: 1px solid black">
-						<h4>Ajouter un Employé</h4>
+						<h3 align="center">Ajouter un Employé</h4>
+END;
+		formulaireInsEmp($conn);
+		echo <<<END
 					</div>
 					<div class="col-md-1"></div>
 					<div class="col-md-3" style="border: 1px solid black">
-						<h4>Fermer un compte</h4>
+						<h3 align="center">Changer Etat Compte</h4>
+END;
+		afficheListeUser($conn);
+		echo <<<END
 					</div> 
 				</div> 
 			</div>
 			<div id="stat" class="container" style="display:none;">
 				<div class="row">
 					<div class="col-md-12" style="border: 1px solid black;">
-						<h4>Statistiques</h4>
+						<h3 align="center">Statistiques</h4>
 					</div>
 				</div> 
 			</div>
+END;
+	}
+	
+	function afficheListeUser($conn){
+		$req = get_user();
+		$result = odbc_exec($conn,$req);
+		echo '<table style="width:100%;"><TR><TD align="center"><b>Nom</b></TD><TD align="center"><b>Prénom</b></TD><TD align="center"><b>Etat</b></TD><TD align="center"></TD></TR>';
+		while(odbc_fetch_row($result)){
+		  $id = odbc_result($result, 1);
+		  $nom = odbc_result($result, 2);
+		  $prenom = odbc_result($result, 3);
+		  $estouvert = odbc_result($result, 4);  
+		  
+		  if ($estouvert == 0){
+			  $estouvert = 'Fermé';
+		  } else{
+			  $estouvert = 'Ouvert';
+		  }
+		  echo '<tr><td align="center">'.$nom.'</td>
+				<td align="center">'.$prenom.'</td>
+				<td align="center">'.$estouvert.'</td>
+				<td align="center">
+				<form action="action.php" method="post">
+					<input type="hidden" name="etat" value="'.$estouvert.'">
+					<input type="hidden" name="id" value="'.$id.'">
+					<input type="image" src="img/change.png" height="15" width="15"></td>
+				</form></tr>';
+		}
+		echo '</table>';
+	}
+
+	function formulaireInsEmp($conn){
+		
+		echo <<<END
+			<table style="width:100%;">
+        		<form method="post" action="action.php" name="insEmp">
+				    <tr style="height:50px;">	
+				    	<td align="center"><input type="text" class="span3" name="nom" placeholder="Nom"></td>
+				    	<td align="center"><input type="text" class="span3" name="prenom" placeholder="Prénom"></td>
+				    	<td align="center"><input type="text" class="span3" name="mail" id="email" placeholder="Email"></td>
+				    </tr>
+				    <tr style="height:50px;">
+				    	<td align="center"><input type="text" class="span3" name="num" placeholder="n°"></td>
+				    	<td align="center"><input type="text" class="span3" name="adr" placeholder="Adresse"></td>
+				    	<td align="center"><select style="width:80%;" name ="ville" class="form-control">
+END;
+		$result = odbc_exec($conn,"SELECT IDVILLE, NOMVILLE from ville;");
+		while (odbc_fetch_row($result)){
+		    $nomville = odbc_result($result, 2);
+		    $id = odbc_result($result, 1);
+			echo '<option value='.$id.'>'.$nomville.'</option>';
+		}
+
+		echo <<<END
+					</select></td>
+				    </tr>
+				    <tr style="height:50px;">
+				    	<td align="center"><input type="text" class="span3" name="tel" placeholder="Telephonne"></td>
+				    	<td align="center"><input type="password" class="span3" name="pass" placeholder="Mot de passe"></td>
+				    	<td align="center"><button type="submit" class="btn btn-primary">Sign in</button></td>
+				    </tr>
+			        <input type="hidden" name="ins_emp" value="true">
+        		</form>
+        	</table>
 END;
 	}
 ?>
