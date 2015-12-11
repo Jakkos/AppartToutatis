@@ -18,12 +18,24 @@ class Utilisateur{
 	
 	}
 	
-	public static function crateUser($conn,$utilisateur,$idadresse, $nom, $prenom, $mail, $tel, $password, $estouvert,$idsysuser){
-		$requete = odbc_exec($conn,"INSERT INTO utilisateur (IDUTILISATEUR,IDADRESSE, NOM,PRENOM,MAIL,TEL,PASSWORD,ESTOUVERT,IDSYSUSER)	
-			VALUES(
-				$utilisateur,$idadresse,'$nom','$prenom','$mail',$tel,'$password',$estouvert,$idsysuser)");
-		
-		
+	public static function addUser($conn,$idadresse, $nom, $prenom, $mail, $tel, $password, $estouvert,$idsysuser){
+		$requete = odbc_exec($conn,"INSERT INTO utilisateur (IDADRESSE, NOM,PRENOM,MAIL,TEL,PASSWORD,ESTOUVERT,IDSYSUSER)	
+			VALUES($idadresse,
+				'$nom',
+				'$prenom',
+				'$mail',
+				$tel,
+				'$password'	,
+				$estouvert,
+				$idsysuser);");
+		odbc_close($conn);
+	}
+
+	public static function addAdress($conn, $idville, $numrue, $nomrue)
+	{
+		$requete = odbc_exec($conn, "INSERT INTO adresse (IDVILLE,NUMRUE,NOMRUE) VALUES ($idville,$numrue,'$nomrue');");
+		$result = odbc_exec($conn, "SELECT @"."@IDENTITY AS Ident");
+		return $result;
 		odbc_close($conn);
 	}
 	
