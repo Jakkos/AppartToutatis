@@ -4,7 +4,7 @@ $dossierCourant = substr(getcwd(),strlen(getcwd())-14,14);
 $path ="";
 if ($dossierCourant != "AppartToutatis"){//csiprojectsite
   $path = "../";
-} 
+}
 ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -23,7 +23,7 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
       </li>
       <?php
       $_SESSION["utilisateur"] = "oui";
-      $_SESSION["role"] = 2;
+      $_SESSION["idsysuser"] = 8;
       genererBarreNav($path);
       ?> 
       <!-- /.navbar-collapse -->
@@ -38,17 +38,17 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
     if (isset($_SESSION["utilisateur"]))
     {
       echo '<li><a href="'.$path.'mon_compte.php">Mon Compte</a></li>';
-      if (isset($_SESSION["role"]))
+      if (isset($_SESSION["idsysuser"]))
       {
         $type=$_SESSION["role"];
         switch ($type) {
           case '0':
             # ici chef d'agence
-            if(substr(getcwd(),strlen(getcwd())-14,14) == "administration"){
-              echo "<li><a href='oi_admin.php'>Administration</a></li>";
-            }else{
-              echo "<li><a href='administration/oi_admin.php'>Administration</a></li>";
-            }
+          if(substr(getcwd(),strlen(getcwd())-14,14) == "administration"){
+            echo "<li><a href='oi_admin.php'>Administration</a></li>";
+          }else{
+            echo "<li><a href='administration/oi_admin.php'>Administration</a></li>";
+          }
           break;
           case '1':
           # ici EmployeAgence
@@ -106,4 +106,5 @@ END;
       }
     }
   }
+  // locataire / proprietaire / locprop / employe / userco / chefagence
   ?>

@@ -14,8 +14,8 @@ class Utilisateur{
 	private $role;
 	
 	public function __construct(){
-	
-	
+		
+		
 	}
 	
 	public static function addUser($conn,$idadresse, $nom, $prenom, $mail, $tel, $password, $estouvert,$idsysuser){
@@ -31,6 +31,31 @@ class Utilisateur{
 		odbc_close($conn);
 	}
 
+	public static function connexion($con,$mail,$pass){
+		$requete = odbc_exec($conn, "SELECT idutilisateur FROM utilisateur WHERE mail LIKE '$mail';");
+		if($requete!=null) // utilisateur existant
+		{
+			$requete = odbc_exec($conn, "SELECT idutilisateur FROM utilisateur WHERE mail LIKE '$mail' AND password LIKE '$pass';");
+			if($requete!=null)
+				return true;
+			else return false;
+		}
+		else
+			return false;
+		// return groupe utilisateur pour la connexion
+		
+	}
+
+	public static function getIdSysUser($conn,$mail){
+		$requete = odbc_exec($conn, "SELECT idsysuser FROM utilisateur WHERE mail LIKE '$mail';");
+		return $requete;
+	}
+
+	
+
+
+
+
 	public static function addAdress($conn, $idville, $numrue, $nomrue)
 	{
 		$requete = odbc_exec($conn, "INSERT INTO adresse (IDVILLE,NUMRUE,NOMRUE) VALUES ($idville,$numrue,'$nomrue');");
@@ -39,6 +64,25 @@ class Utilisateur{
 		odbc_close($conn);
 	}
 	
+	public static function get_mail($p, $pseudo){
+		$requete = $p->prepare("SELECT mail FROM users WHERE pseudo = :pseudo;");
+		$requete->bindParam('pseudo', $pseudo);
+		$requete->execute();
+		$res = $requete->fetch(PDO::FETCH_OBJ);
+
+		return $res->mail;
+	}
+	
+	public static function pass_existe($p, $username){
+		$requete = $p->prepare("SELECT per_mdp FROM personne WHERE per_mail = :username;");
+		$requete->bindParam('username', $username);
+		$requete->execute();
+		$res = $requete->fetch(PDO::FETCH_OBJ);
+
+		return $res->per_mdp;
+	}
+
+	//******************************************************************************************************************************//
 	
 	
 	public static function getUser($p,$id)

@@ -8,6 +8,19 @@ if (isset($_POST['Inscription'])) {
   
   addUser($conn);
 }
+if (isset($_POST['Connexion'])){
+  connexion($conn);
+
+}
+function connexion($conn){
+  $mail = trim($_POST["mail"]); 
+  $pass = trim($_POST["pass"]); 
+  $est_co = Utilisateur::connexion($conn,$mail,$pass);
+  if($est_co){
+    // changer les informations de connexion en allant récuprérer son groupe, voir dans connexion.php
+    $_SESSION['idsysuser'] = (int)Utilisateur::getIdSysUser($conn,$mail);
+  }
+}
 
 function ddlVille($conn){
   $result = odbc_exec($conn,"SELECT IDVILLE, NOMVILLE from ville;");

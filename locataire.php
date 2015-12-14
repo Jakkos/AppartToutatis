@@ -21,4 +21,24 @@ echo <<<END
 			<body>
 END;
 include 'navbar.php';
+
+$req = "select * from sysusers;";
+
+
+
+$result = odbc_exec($conn,$req);
+while(odbc_fetch_row($result)){
+  $id = odbc_result($result, 1);
+  $photo = odbc_result($result, 2);
+  $a = odbc_result($result, 3);
+  $b = odbc_result($result, 4);
+echo '<p>'.$id.'</p>';
+echo '<p>'.$photo.'</p>';
+echo '<p>'.$a.'</p>';
+echo '<p>'.$b.'</p>';
+echo '<p></p>';
+}
+// affichage de sa liste d'appartement
+// bouton payer
+// déposer contrat assurance et entretien chaudière
 ?>
