@@ -7,4 +7,6 @@
 	
 	// Connexion au serveur MySQL
 	$conn = odbc_connect($dsn, $user, $password) or die(odbc_error());
+
+	
 ?>

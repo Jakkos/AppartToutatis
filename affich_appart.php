@@ -16,46 +16,33 @@ $req = "select IDAPPARTEMENT,URLPHOTO from appartement";
 odbc_close($conn);/*
 */
 include ('connexion.php');
+include ('requete_appart.php');
 
 $req = find_appart(0);
-
 $result = odbc_exec($conn,$req);
 while(odbc_fetch_row($result)){
-  $titre = odbc_result($result, 1);
-  $surname = odbc_result($result, 2);
-  $photo = odbc_result($result, 3);  
-  imprimer($titre, $photo);
+  $id = odbc_result($result, 1);
+  $photo = odbc_result($result, 2);
+  $titre = get_description_titre($conn, $id);
+  $description = get_description_total($conn, $id);
+  imprimer($id, $titre, $photo, $description);
 }
 odbc_close($conn);
 
-function find_appart($type) {
-  if ($type==0) {
-    $req = 'SELECT APPARTTITRE, NUMAPPARTEMENT, URLPHOTO 
-    FROM appartement WHERE ESTDISPONIBLE=1';
-    return $req;
-  }
-  else {
-    $req = 'SELECT APPARTTITRE, NUMAPPARTEMENT, URLPHOTO FROM
-    appartement INNER JOIN type ON appartement.IDTYPE = type.IDTYPE 
-    WHERE ESTDISPONIBLE=1 AND appartement.IDTYPE='.$type;
-    return $req;
-  }
-}
-
-function imprimer($titre, $photo)  {
+function imprimer($id, $titre, $photo, $description)  {
   echo '
-    <div class="col-md-3 col-sm-6 hero-feature">
-      <div class="thumbnail">
-        <img src="'.$photo.'" alt="">
-        <div class="caption">
-          <h3>'.$titre.'</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          <p>
-            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-          </p>
-        </div>
+  <div class="col-md-3 col-sm-6 hero-feature">
+    <div class="thumbnail">
+      <img src="'.$photo.'" alt="">
+      <div class="caption">
+        <h3>'.$titre.'</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.'.$description.'</p>
+        <p>
+        <a href="appartement.php?id='.$id.'" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>           
+        </p>
       </div>
     </div>
+  </div>
   ';
 }
 ?>

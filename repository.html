@@ -1,0 +1,71 @@
+<?php
+require_once("config.inc.php");
+class Utilisateur{
+	private $idUtilisateur;
+	private $nom;
+	private $prenom;
+	private $mail;
+	private $tel;
+
+	private $role;
+	
+	public function __construct(){
+	
+	
+	}
+	
+	public static function crateUser($p, $username, $password, $email){
+		$requete = $p->prepare("INSERT INTO users (username, password, email)	VALUES(:username, :password, :email)");
+		$requete->bindParam('username', $username);
+		$requete->bindParam('password', $password);
+		$requete->bindParam('email', $email);	
+		$res = $requete->execute();
+		
+		return $res;
+	}
+	
+	
+	
+	public static function getUser($p,$id)
+	{
+		$requete = $p->prepare("SELECT pro_nom FROM produit where pro_id = :id;");
+		$requete->bindParam('id',$id);
+		$requete->execute();
+		$res = $requete->fetch(PDO::FETCH_OBJ);
+		
+		return $res->pro_nom;
+	}
+
+	public static function updateUser($p,$id)
+	{
+		$requete = $p->prepare("SELECT pro_nom FROM produit where pro_id = :id;");
+		$requete->bindParam('id',$id);
+		$requete->execute();
+		$res = $requete->fetch(PDO::FETCH_OBJ);
+		
+		return $res->pro_nom;
+	}
+	
+	public static function deleteUser($p,$id)
+	{
+		$requete = $p->prepare("SELECT pro_nom FROM produit where pro_id = :id;");
+		$requete->bindParam('id',$id);
+		$requete->execute();
+		$res = $requete->fetch(PDO::FETCH_OBJ);
+		
+		return $res->pro_nom;
+	}
+
+	public static function getRoleUser($p,$id)
+	{
+		$requete = $p->prepare("SELECT pro_nom FROM produit where pro_id = :id;");
+		$requete->bindParam('id',$id);
+		$requete->execute();
+		$res = $requete->fetch(PDO::FETCH_OBJ);
+		
+		return $res->pro_nom;
+	}
+	
+
+}
+?>
