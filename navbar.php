@@ -23,8 +23,8 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
       </li>
       <?php
       $_SESSION["utilisateur"] = "oui";
-      $_SESSION["role"] = 0;
-      genererBarreNav();
+      $_SESSION["role"] = 2;
+      genererBarreNav($path);
       ?> 
       <!-- /.navbar-collapse -->
     </div>
@@ -34,14 +34,16 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
 
 
   <?php
-  function genererBarreNav(){
+  function genererBarreNav($path){
     if (isset($_SESSION["utilisateur"]))
     {
+      echo '<li><a href="'.$path.'mon_compte.php">Mon Compte</a></li>';
       if (isset($_SESSION["role"]))
       {
         $type=$_SESSION["role"];
         switch ($type) {
           case '0':
+            # ici chef d'agence
             if(substr(getcwd(),strlen(getcwd())-14,14) == "administration"){
               echo "<li><a href='oi_admin.php'>Administration</a></li>";
             }else{
@@ -52,20 +54,20 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
           # ici EmployeAgence
           break;
           case '2':
+          # ici Locataire
           echo <<<END
           <li>
-          <a href="#">Locataire</a>
+          <a href="locataire.php">Locataire</a>
           </li>
 END;
-          # ici Locataire
           break; 
           case '3':
+          # ici Propriétaire
           echo <<<END
           <li>
           <a href="UserPage.php">Propriétaire</a>
           </li>
 END;
-          # ici Proprietaire
           break;  
           case '4':
           echo <<<END
