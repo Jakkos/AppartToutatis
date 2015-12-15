@@ -16,6 +16,19 @@ $req = "select IDAPPARTEMENT,URLPHOTO from appartement";
 odbc_close($conn);/*
 */
 include ('connexion.php');
+
+$req = 'INSERT INTO  contratlocation (IDAPPARTEMENT,IDUTILISATEUR,DATEDEBUTLOC,DATEFINLOC)
+VALUES (1,1,CONVERT(DATETIME,"01/12/2015",101),CONVERT(DATETIME,"14/12/2015",101))';
+
+
+//$req = "sp_adduser User2_GroupeB";
+
+$result = odbc_exec($conn,$req);
+ECHO 'ok';
+
+
+
+
 include ('requete_appart.php');
 
 $req = find_appart(0);
@@ -35,8 +48,7 @@ function imprimer($id, $titre, $photo, $description)  {
     <div class="thumbnail">
       <img src="'.$photo.'" alt="">
       <div class="caption">
-        <h3>'.$titre.'</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.'.$description.'</p>
+        <h3>'.utf8_decode($titre).'</h3>
         <p>
         <a href="appartement.php?id='.$id.'" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>           
         </p>

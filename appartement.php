@@ -55,14 +55,14 @@ while(odbc_fetch_row($result)){
   $description = get_description_total($conn, $_GET['id']);
 }
 
-                
-                   echo ' <img class="img-responsive" src="'.$photo.'" alt="">
+               ?> 
+                   <img class="img-responsive" src="'.$photo.'" alt="">
                     <div class="caption-full">
                         <h4 class="pull-right">'.$loyer.'  €</h4>
                         <h4><a href="#">'.$titre.'</a>
                         </h4>
                         <p>'.$description.'</p>
-                    </div>';
+                    </div>
                     ?>
                 </div>
 
@@ -70,7 +70,7 @@ while(odbc_fetch_row($result)){
 
                     <div class="text-right">
                         <a class="btn btn-success">Contacter l'agence</a>
-                        <a class="btn btn-success">Louer!</a>
+                        <?php echo '<a class="btn btn-success" action="contrat.php?.'id=$id'."">Louer!</a>' ?>
                     </div>
 
                 </div>

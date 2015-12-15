@@ -2,6 +2,10 @@
 include 'administration/c_admin.php';
 include 'connexion.php';
 
+if ($conn)  {
+	echo 'ok';
+}
+
 echo <<<END
 			<!DOCTYPE html>
 			<head>
