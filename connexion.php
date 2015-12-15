@@ -5,6 +5,9 @@ $dsn = "Corail";
 
 $user     = "User1_GroupeD";
 $password = "azerty";
+$server = "172.21.9.94:4100";
+$db = "M1_GroupeD";
+
 
 if (isset( $_SESSION['idsysuser']))
 {
@@ -29,16 +32,19 @@ if (isset( $_SESSION['idsysuser']))
 		$user =   "User1_GroupeA";
 		break;
 		case '8':
-		$user =   "User2_GroupeB";
+		$user =   "User2_GroupeA";
 		break;
+		default:
+		$user = "User1_GroupeD";
 	}
 	echo ($user);
-	$conn = odbc_connect($dsn, $user, $password) or die(odbc_error());
+	$conn = odbc_connect("Driver={Adaptative Server Entreprise};Server=".$server.";Database=".$db, $user, $password);
 }
 
 	// Connexion au serveur MySQL
-$conn = odbc_connect($dsn, $user, $password) or die(odbc_error());
-
+$conn = odbc_connect("Driver={Adaptative Server Entreprise};Server=".$server.";Database=".$db, $user, $password);
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 	//User1_GroupeA   azerty visiteur => connexion auto dessus 			uid:7
 	// ET on les change ici 
 	//User1_GroupeD    chefagence     uid:1
