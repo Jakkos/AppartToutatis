@@ -51,8 +51,10 @@ if (isset( $_SESSION['idsysuser']))
 $dsn = "Driver={Adaptive Server Enterprise};Server=172.21.9.94;Port=4100;Database".$db.";UID=".$user.";Password=azerty;";
 $password = "azerty";
 
-echo $dsn;
-//echo $dsn;
 $conn = odbc_connect($dsn,$user,"azerty");
+
+	$req = "use M1_GroupeD";
+	odbc_exec($conn,$req);
+
 
 ?>
