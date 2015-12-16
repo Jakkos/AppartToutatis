@@ -23,12 +23,11 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
       </li>
       <?php
       $_SESSION["utilisateur"] = "oui";
-      $_SESSION["idsysuser"] = 8;
+      $_SESSION["idsysuser"] = 1;
       genererBarreNav($path);
       ?> 
       <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container -->
     <!-- /.container -->
     <!-- /.container -->
   </nav>
@@ -41,7 +40,7 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
       echo '<li><a href="'.$path.'mon_compte.php">Mon Compte</a></li>';
       if (isset($_SESSION["idsysuser"]))
       {
-        $type=$_SESSION["role"];
+        $type=$_SESSION["idsysuser"];
         switch ($type) {
           case '0':
             # ici chef d'agence
