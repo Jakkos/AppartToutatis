@@ -13,13 +13,13 @@ function get_loyer($conn, $id) {
 }
 
 function get_description_titre ($conn, $id) {
-  $req = 'SELECT VAL FROM description WHERE NOMDESCRIPTION= "titre" AND IDAPPARTEMENT='.$id;
+  $req = 'SELECT VAL FROM dbo.description WHERE NOMDESCRIPTION= "titre" AND IDAPPARTEMENT='.$id;
   $result=odbc_exec($conn,$req);
   return odbc_result($result, 1);
 }
 
 function get_description_total ($conn, $id) {
-  $req = 'SELECT VAL FROM description WHERE NOMDESCRIPTION= "description" AND IDAPPARTEMENT='.$id;
+  $req = 'SELECT VAL FROM dbo.description WHERE NOMDESCRIPTION= "description" AND IDAPPARTEMENT='.$id;
   $result=odbc_exec($conn,$req);
   return odbc_result($result, 1);
 }
@@ -36,5 +36,20 @@ function find_appart($type) {
     WHERE ESTDISPONIBLE=1 AND appartement.IDTYPE='.$type;
     return $req;
   }
+}
+
+function find_appart_prop($idProp)
+{
+  $req = 'SELECT appartement.IDAPPARTEMENT,appartement.URLPHOTO FROM
+    appartement WHERE appartement.IDUTILISATEUR='.$idProp ;
+    return $req;
+}
+
+function find_appart_loc($idLoc)
+{
+  $req = 'SELECT contratlocation.IDAPPARTEMENT FROM
+    contratlocation INNER JOIN appartement ON appartement.IDAPPARTEMENT = contratlocation.IDAPPARTEMENT 
+    WHERE contratlocation.IDUTILISATEUR='.$idLoc.'AND contratlocation.DATEDEBUTLOC < convert(datetime,"01/01/1970",103)';
+    return $req;
 }
 ?>
