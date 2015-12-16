@@ -46,7 +46,9 @@ function imprimer($id, $titre, $photo, $description)  {
       <div class="caption">
         <h3>'.utf8_decode($titre).'</h3>
         <p>
-        <a href="appartement.php?id='.$id.'" class="btn btn-primary">Louer</a> <a href="#" class="btn btn-default">More Info</a>           
+        <a href="appartement.php?id='.$id.'" class="btn btn-primary">Louer</a> <a href="#" class="btn btn-default">More Info</a>
+        <p><button type="button" class="btn btn-default" data-dismiss="modal">Payer</button></p>
+	 <p><button type="button" class="btn btn-default" data-dismiss="modal">Entretien chaudière </button></p>           
         </p>
       </div>
     </div>
@@ -56,11 +58,21 @@ function imprimer($id, $titre, $photo, $description)  {
 // affichage de sa liste d'appartement
 // bouton payer
 // déposer contrat assurance et entretien chaudière
+
+$req = "select IDUTILISATEUR from appartement;";
+
+
+
+$result = odbc_exec($conn,$req);
+while(odbc_fetch_row($result)){
+  $id = odbc_result($result, 1);
+
+echo '<p>'.$id.'</p>';
+
+echo '<p></p>';
+}
 ?>
 </div>
-<div class="row text-right">
-	 <p><button type="button" class="btn btn-default" data-dismiss="modal">Payer</button></p>
-	 <p><button type="button" class="btn btn-default" data-dismiss="modal">Entretien chaudière </button></p>
-</div>
+
 </div>
 </body>

@@ -37,4 +37,11 @@ function find_appart($type) {
     return $req;
   }
 }
+function find_appart_loc($idLoc)
+{
+  $req = 'SELECT contratlocation.IDAPPARTEMENT FROM
+    contratlocation INNER JOIN appartement ON appartement.IDAPPARTEMENT = contratlocation.IDAPPARTEMENT 
+    WHERE contratlocation.IDUTILISATEUR='.$idLoc.'AND contratlocation.DATEFINLOC > getdate() AND contratlocation.DATEDEBUTLOC is not null';
+    return $req;
+}
 ?>
