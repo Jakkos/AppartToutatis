@@ -49,7 +49,7 @@
     <!-- /.row -->
 
     <!-- Page Features -->
-    <div class="row text-center">;
+    <div class="row text-center">
 
       <?php include('affich_appart.php'); ?>
 

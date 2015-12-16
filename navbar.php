@@ -22,8 +22,6 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
         <a href="#">Vacances</a>
       </li>
       <?php
-      $_SESSION["utilisateur"] = "oui";
-      $_SESSION["idsysuser"] = 1;
       genererBarreNav($path);
       ?> 
       <!-- /.navbar-collapse -->
@@ -34,15 +32,17 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
 
 
   <?php
+
   function genererBarreNav($path){
     if (isset($_SESSION["utilisateur"]))
-    {
+    { 
+
       echo '<li><a href="'.$path.'mon_compte.php">Mon Compte</a></li>';
       if (isset($_SESSION["idsysuser"]))
       {
         $type=$_SESSION["idsysuser"];
         switch ($type) {
-          case '0':
+          case '1':
             # ici chef d'agence
           if(substr(getcwd(),strlen(getcwd())-14,14) == "administration"){
             echo "<li><a href='oi_admin.php'>Administration</a></li>";
@@ -50,7 +50,7 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
             echo "<li><a href='administration/oi_admin.php'>Administration</a></li>";
           }
           break;
-          case '1':
+          case '0':
           # ici EmployeAgence
           break;
           case '2':
@@ -104,7 +104,30 @@ END;
       {
 
       }
+      echo <<<END
+      </ul>
+      <ul class="nav navbar-nav" id="identification">
+          <li>
+          <a href="deconnexion.php">Deconnexion</a>
+          </li>
+      </ul>
+END;
+      
     }
+     else
+      {
+          echo <<<END
+          </ul>
+          <ul class="nav navbar-nav" id="identification">
+          <li>
+          <button class= "btn btn-default navbar-btn" data-toggle="modal" data-target="#mod-con" >Connexion</button>
+          </li>
+          <li>
+          <button class= "btn btn-default navbar-btn" data-toggle="modal" data-target="#mod-ins">Inscription</button>
+          </li>
+          </ul>
+END;
+      }
   }
   // locataire / proprietaire / locprop / employe / userco / chefagence
   ?>

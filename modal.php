@@ -13,12 +13,22 @@ if (isset($_POST['Connexion'])){
 
 }
 function connexion($conn){
-  $mail = trim($_POST["mail"]); 
-  $pass = trim($_POST["pass"]); 
-  $est_co = Utilisateur::connexion($conn,$mail,$pass);
-  if($est_co){
-    // changer les informations de connexion en allant récuprérer son groupe, voir dans connexion.php
-    $_SESSION['idsysuser'] = (int)Utilisateur::getIdSysUser($conn,$mail);
+  $mail = trim($_POST["eid"]); 
+  $pass = trim($_POST["passwd"]); 
+  $user = Utilisateur::connexion($conn,$mail,$pass);
+  if($user!=false){
+  $req = "select IDUTILISATEUR from utilisateur WHERE MAIL = '$mail';";
+  $result = odbc_exec($conn,$req);
+  $id = odbc_result($result, 1);
+  echo $id;
+  $req = "select IDSYSUSER from utilisateur WHERE MAIL = '$mail';";
+  $result = odbc_exec($conn,$req);
+  $sysuser = odbc_result($result, 1);
+  echo $sysuser;
+// while(odbc_fetch_row($result)){
+//   $id = odbc_result($result, 1);
+    $_SESSION['idsysuser'] = $sysuser;
+    $_SESSION['utilisateur'] = $id;
   }
 }
 
@@ -47,13 +57,30 @@ function addUser($conn){
   $estouvert=1; //int
   $idsysuser=0; //int
 
-  Utilisateur::addUser($conn,$idadresse,$nom,$prenom,$mail,$tel,$password,$estouvert,$idsysuser);
+  $user = Utilisateur::addUser($conn,$idadresse,$nom,$prenom,$mail,$tel,$password,$estouvert,$idsysuser);
+  if($user!= null )
+    {
+      $est_co = Utilisateur::connexion($conn,$mail,$password);
+  if($est_co){
+     $req = "select IDUTILISATEUR from utilisateur WHERE MAIL = '$mail';";
+  $result = odbc_exec($conn,$req);
+  $id = odbc_result($result, 1);
+      $req = "select IDSYSUSER from utilisateur WHERE MAIL = '$mail';";
+  $result = odbc_exec($conn,$req);
+  $sysuser = odbc_result($result, 1);
+// while(odbc_fetch_row($result)){
+//   $id = odbc_result($result, 1);
+    $_SESSION['idsysuser'] = $sysuser;
+    $_SESSION['utilisateur'] = $id;
+  }
+  else
+  {
+    echo 'nan';
+  }
+    }
 }
 
-if (isset($_POST['Connexion']))
-{
-  connexion();
-}
+
 
 ?>
 <div id="mod-con" class="modal fade" role="dialog" >

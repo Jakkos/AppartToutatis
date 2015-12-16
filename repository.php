@@ -28,16 +28,18 @@ class Utilisateur{
 				'$password'	,
 				$estouvert,
 				$idsysuser);");
+		$result = odbc_exec($conn, "SELECT @"."@IDENTITY AS Ident");
+		return $result;
 		odbc_close($conn);
 	}
 
-	public static function connexion($con,$mail,$pass){
-		$requete = odbc_exec($conn, "SELECT idutilisateur FROM utilisateur WHERE mail LIKE '$mail';");
+	public static function connexion($conn,$mail,$pass){
+		$requete = odbc_exec($conn, "SELECT IDUTILISATEUR FROM utilisateur WHERE MAIL LIKE '$mail';");
 		if($requete!=null) // utilisateur existant
 		{
-			$requete = odbc_exec($conn, "SELECT idutilisateur FROM utilisateur WHERE mail LIKE '$mail' AND password LIKE '$pass';");
+			$requete = odbc_exec($conn, "SELECT IDUTILISATEUR FROM utilisateur WHERE MAIL LIKE '$mail' AND PASSWORD LIKE '$pass';");
 			if($requete!=null)
-				return true;
+				return $requete;
 			else return false;
 		}
 		else
@@ -47,7 +49,7 @@ class Utilisateur{
 	}
 
 	public static function getIdSysUser($conn,$mail){
-		$requete = odbc_exec($conn, "SELECT idsysuser FROM utilisateur WHERE mail LIKE '$mail';");
+		$requete = odbc_exec($conn, "SELECT IDSYSUSER FROM utilisateur WHERE MAIL LIKE '$mail';");
 		return $requete;
 	}
 

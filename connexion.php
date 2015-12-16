@@ -56,5 +56,13 @@ $conn = odbc_connect($dsn,$user,"azerty");
 	$req = "use M1_GroupeD";
 	odbc_exec($conn,$req);
 
-
+	//User1_GroupeA   azerty visiteur => connexion auto dessus 			uid:7
+	// ET on les change ici 
+	//User1_GroupeD    chefagence     uid:1
+	//User2_GroupeD    employé			uid:3
+	//User3_GroupeD    locataire		uid:4
+	//User4_GroupeD    proprietaire		uid:5
+	//User5_GroupeD    locprop			uid:6
+	//User2_GroupeA		userco 			uid:8
+	
 ?>
