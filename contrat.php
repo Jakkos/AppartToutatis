@@ -1,18 +1,20 @@
 <?php
 include 'administration/c_admin.php';
 include 'connexion.php';
-
-if ($conn)  {
-	echo 'ok';
-}
+include 'navbar.php';
 if(isset($_POST['creerContrat'])) {
-
-	creation_contrat();
-
+	creation_contrat($conn);
+  echo 'ok';
 }
 
-function creation_contrat(){
-	
+function creation_contrat($conn){
+	    $id = $_GET['id'];
+    if (isset($_SESSION['utilisateur'])) {
+      $user = $_SESSION['utilisateur'];  
+    }
+    $req = 'INSERT INTO  contratlocation (IDAPPARTEMENT,IDUTILISATEUR,DATEDEBUTLOC,DATEFINLOC)
+VALUES ('.$id.','.$user.',CONVERT(DATETIME,"01/01/1970",103),CONVERT(DATETIME,"01/01/1970",103))';
+odbc_exec($conn,$req);
 }
 
 echo <<<END
@@ -33,39 +35,29 @@ echo <<<END
 			</head>
 			<body>
 END;
-include 'navbar.php';
-
-
-
 ?>
 
-<div id="mod-con" class="modal fade" role="dialog" >
+<div id="mod-contrat" role="dialog" >
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Connectez vous ! </h4>
+        <h4 class="modal-title">Reservez votre appartement ! </h4>
       </div>
       <div class="modal-body">
         <form method="post" action='' name="login_form">
-          <p><input type="text" class="span3" name="eid" id="email" placeholder="Email"></p>
            <p><button type="submit" class="btn btn-primary">Joindre dossiers</button></p>
           <p><button type="submit" class="btn btn-primary">Valider</button>
             <input type="hidden" name="creerContrat" value="true">
-            <a href="https://www.youtube.com/watch?v=PWgvGjAhvIw">Forgot Password?</a>
           </p>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" action = "index.php">Close</button>
       </div>
     </div>
 
   </div>
 </div>
-
-
-
-?>

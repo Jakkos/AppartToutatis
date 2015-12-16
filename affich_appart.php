@@ -16,19 +16,6 @@ $req = "select IDAPPARTEMENT,URLPHOTO from appartement";
 odbc_close($conn);/*
 */
 include ('connexion.php');
-
-$req = 'INSERT INTO  contratlocation (IDAPPARTEMENT,IDUTILISATEUR,DATEDEBUTLOC,DATEFINLOC)
-VALUES (1,1,CONVERT(DATETIME,"01/12/2015",101),CONVERT(DATETIME,"14/12/2015",101))';
-
-
-//$req = "sp_adduser User2_GroupeB";
-
-$result = odbc_exec($conn,$req);
-ECHO 'ok';
-
-
-
-
 include ('requete_appart.php');
 
 $req = find_appart(0);
