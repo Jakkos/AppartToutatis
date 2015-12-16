@@ -5,6 +5,7 @@
 include 'administration/c_admin.php';
 include 'connexion.php';
 include ('requete_appart.php');
+
 echo <<<END
 			<!DOCTYPE html>
 			<head>
@@ -27,7 +28,7 @@ include 'navbar.php';
 
 
 
-$req = find_appart_loc(2);
+$req = find_appart_loc(1);
 $result = odbc_exec($conn,$req);
 while(odbc_fetch_row($result)){
   $id = odbc_result($result, 1);
@@ -59,18 +60,18 @@ function imprimer($id, $titre, $photo, $description)  {
 // bouton payer
 // déposer contrat assurance et entretien chaudière
 
-$req = "select IDUTILISATEUR from appartement;";
+// $req = "select IDUTILISATEUR from appartement;";
 
 
 
-$result = odbc_exec($conn,$req);
-while(odbc_fetch_row($result)){
-  $id = odbc_result($result, 1);
+// $result = odbc_exec($conn,$req);
+// while(odbc_fetch_row($result)){
+//   $id = odbc_result($result, 1);
 
-echo '<p>'.$id.'</p>';
+// echo '<p>'.$id.'</p>';
 
-echo '<p></p>';
-}
+// echo '<p></p>';
+//}
 ?>
 </div>
 
