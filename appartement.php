@@ -51,6 +51,7 @@ $result = odbc_exec($conn,$req);
 while(odbc_fetch_row($result)){
   $id = odbc_result($result, 1);
   $photo = odbc_result($result, 2);
+  $type = odbc_result($result, 3);
   $titre = get_description_titre($conn, $_GET['id']);
   $description = get_description_total($conn, $_GET['id']);
 }
@@ -62,6 +63,7 @@ while(odbc_fetch_row($result)){
                         <h4><a href="#">'.$titre.'</a>
                         </h4>
                         <p>'.$description.'</p>
+                        <h3>'.$type.'</h3>
                     </div>
                     '; ?>
                 </div>

@@ -28,7 +28,7 @@ include 'navbar.php';
 
 
 
-$req = find_appart_loc(1);
+$req = get_type($_GET['type']);
 $result = odbc_exec($conn,$req);
 while(odbc_fetch_row($result)){
   $id = odbc_result($result, 1);
