@@ -48,6 +48,16 @@ if (isset($_POST['idSupC'])){
 	$req = "DELETE FROM dbo.contratlocation WHERE IDCONTRAT = $idSupC";
 	$res = odbc_exec($conn, $req);
 }
+if (isset($_POST['idValP'])){
+	$idValC = (is_numeric($_POST['idValP']) ? (int)$_POST['idValP'] : 0);
+	$req = "UPDATE dbo.contrat_a_prolonger SET DATEFINLOC = dateadd(yy, 3, DATEFINLOC) WHERE IDCONTRAT = $idValP";
+	$res = odbc_exec($conn, $req);
+}
+if (isset($_POST['idSupP'])){
+	$idSupC = (is_numeric($_POST['idSupP']) ? (int)$_POST['idSupP'] : 0);
+	$req = "UPDATE dbo.contrat_a_prolonger SET DMDPROLONG = 0 WHERE IDCONTRAT = $idSupP";
+	$res = odbc_exec($conn, $req);
+}
 
 
 		echo <<<END
@@ -71,10 +81,13 @@ if (isset($_POST['idSupC'])){
 			  <nav class="navbar navbar-default" role="navigation" id="topmenu">
 				<ul class="nav navbar-nav">
 				  <li class="dropdown">
-					<a href="#" data-toggle="collapse" data-target="#one" onclick="toggle_div('app', 'con');">Appartement</a>
+					<a href="#" data-toggle="collapse" data-target="#one" onclick="toggle_div('app', 'con', 'bail');">Appartement</a>
 				  </li>
 				  <li class="dropdown">
-					<a href="#" data-toggle="collapse" data-target="#two" onclick="toggle_div('con', 'app');">Contrat</a>
+					<a href="#" data-toggle="collapse" data-target="#two" onclick="toggle_div('con', 'app', 'bail');">Contrat</a>
+				  </li>
+				   <li class="dropdown">
+					<a href="#" data-toggle="collapse" data-target="#two" onclick="toggle_div('bail', 'app', 'con');">Bail</a>
 				  </li>
 				</ul>
 			  </nav>
@@ -147,8 +160,38 @@ END;
 			</tr>';
 	}
 echo <<<END
+						</table>
 					</div>
 				</div> 
 			</div>
+			<div id="bail" class="container" style="display:none;">
+				<div class="row">
+					<div class="col-md-12" style="border: 1px solid black;">
+						<h3 align="center">Prolonger Bail</h4>
 END;
+	$req = "SELECT IDCONTRAT, IDAPPARTEMENT, IDUTILISATEUR, DATEDEBUTLOC FROM dbo.contrat_a_prolonger";
+	$result = odbc_exec($conn,$req);
+	echo '<table style="width:100%;"><TR><TD align="center"><b>Contrat</b></TD><TD align="center"><b>Appartement</b></TD><TD align="center"><b>Locataire Potentiel</b></TD><TD align="center"></TD></TR>';
+	while(odbc_fetch_row($result)){
+	  $contrat1 = odbc_result($result, 1);
+	  $appart1 = odbc_result($result, 2);
+	  $user1 = odbc_result($result, 3);
+
+	  echo '<tr><td align="center">'.$contrat1.'</td>
+	  		<td align="center">'.$appart1.'</td>
+			<td align="center">'.$user1.'</td>
+			<td align="center">
+				<form action="emp.php" method="post">
+					<input type="hidden" name="idValP" value="'.$contrat1.'">
+					<input type="image" src="img/valide.ico" height="15" width="15">
+				</form>
+			</td>
+			<td align="center">
+				<form action="emp.php" method="post">
+					<input type="hidden" name="idSupP" value="'.$contrat1.'">
+					<input type="image" src="img/delete.png" height="15" width="15">
+				</form>
+			</td>
+			</tr>';
+	}
 ?>
