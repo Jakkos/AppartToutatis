@@ -17,6 +17,7 @@ while(odbc_fetch_row($result)){
 }
 
                echo '
+               <h2> Appartement selectionnee : </h2>
                    <img class="img-responsive" src="'.$photo.'" alt="">
                     <div class="caption-full">
                         <h4 class="pull-right">'.$loyer.'  €</h4>
@@ -24,8 +25,13 @@ while(odbc_fetch_row($result)){
                         </h4>
                         <p>'.utf8_encode($description).'</p>
                         <h3>'.$type.'</h3>
+                        <form method="post" action="index.php" name="login_form">
+           <p><button type="submit" class="btn btn-primary">Joindre dossiers</button></p>
+          <p><button type="submit" class="btn btn-primary">Valider</button>
+            <input type="hidden" name="creerContrat" value="true">
+          </p>
+        </form>
                     </div>
-                    ; 
                 </div>
 
                 <div class="well">
@@ -90,28 +96,3 @@ echo <<<END
 			<body>
 END;
 ?>
-
-<div id="mod-contrat" role="dialog" >
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Reservez votre appartement ! </h4>
-      </div>
-      <div class="modal-body">
-        <form method="post" action='' name="login_form">
-           <p><button type="submit" class="btn btn-primary">Joindre dossiers</button></p>
-          <p><button type="submit" class="btn btn-primary">Valider</button>
-            <input type="hidden" name="creerContrat" value="true">
-          </p>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" action = "index.php">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
