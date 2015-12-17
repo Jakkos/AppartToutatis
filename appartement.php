@@ -77,7 +77,46 @@ while(odbc_fetch_row($result)){
 
                     <div class="text-right">
                     <?php 
-                    if ($idtype==2) {
+                    if(isset($_SESSION['utilisateur']))
+                    {
+                        echo '
+                        
+<div id="mod-ins" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Inscrivez vous ! </h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" action='' name="login_form">
+          <p><input type="text" class="span3" name="nom" placeholder="Nom"></p>
+          <p><input type="text" class="span3" name="prenom" placeholder="Prénom"></p>
+          <p><input type="text" class="span3" name="mail" id="email" placeholder="Email"></p>
+          <p><input type="text" class="span3" name="tel" placeholder="Telephonne"></p>
+          <p><input type="password" class="span3" name="pass" placeholder="Mot de passe"></p>
+
+          <p><input type="text" class="span3" name="num" placeholder="n°"><input type="text" class="span3" name="adr" placeholder="rue"></p>
+          <p><select name ="ville" class="form-control"><?php ddlVille($conn); ?></select></p>          
+          <p><button type="submit" class="btn btn-primary">Sign in</button>
+            <input type="hidden" name="Inscription" value="true">
+            <a href="#">Forgot Password?</a>
+          </p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+                        '
+                    }
+                    elseif ($idtype==2) {
     echo '<table style="width:100%"><form method="post" action="contrat.php?id='.$id.'" name="plage_choix">';
 echo '<tr><td><select name ="plage" class="form-control">';
 
@@ -95,9 +134,8 @@ $req = "SELECT plage.IDPLAGE, PLAGE
 
 
 //.ddlPlage($conn,$id).
-if (isset(($_SESSION['utilisateur'])))
-{
-    echo
+
+echo
 '</select></td>      
                         <td><button class="btn btn-success" type="submit" href="contrat.php?id='.$id.'">Louer pour les vacances !</button></td>
 </form> 
@@ -109,23 +147,6 @@ elseif ($idtype==3) {
 
     echo '<table style="width:100%"><form method="post" action="contrat.php?id='.$id.'" name="plage_choix2">';
 echo '<tr><td><select name ="plage" class="form-control">';
-}
-else
-{
-    echo
-'</select></td>      
-                        <td><button class="btn btn-success" data-toggle="modal" data-target="#mod-ins"">Louer pour les vacances !</button></td>
-</form> 
-                        <td><a class="btn btn-success" id="louer">Contacter lagence</a></td></tr></table>';
-}
-elseif ($idtype==3) {
-    echo '
-                        <a class="btn btn-successdata-toggle="modal" data-target="#mod-ins"">Louer à lannée !</a><p></p>';
-
-    echo '<table style="width:100%"><form method="post" action="contrat.php?id='.$id.'" name="plage_choix2">';
-echo '<tr><td><select name ="plage" class="form-control">';
-}
-
 
 $req = "SELECT plage.IDPLAGE, PLAGE 
     FROM plage WHERE plage.IDPLAGE BETWEEN 25 AND 32 AND IDPLAGE NOT IN (SELECT IDPLAGE FROM paiement
