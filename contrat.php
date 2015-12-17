@@ -33,6 +33,12 @@ function creation_contrat2($conn){
     $req = 'INSERT INTO  contratlocation (IDAPPARTEMENT,IDUTILISATEUR,DATEDEBUTLOC,DATEFINLOC)
 VALUES ('.$id.','.$user.',CONVERT(DATETIME,"01/01/1970",103),CONVERT(DATETIME,"01/01/1970",103))';
 odbc_exec($conn,$req);
+
+  $req = 'SELECT @@IDENTITY FROM contratlocation';
+  $res = odbc_exec($conn,$req);
+  $idcont = odbc_result($res, 1);  
+    $req = 'INSERT INTO paiement (IDCONTRAT,IDPLAGE,DATEPAIEMENT) VALUES ('.$idcont.','.$plage.',NULL)';
+    //odbc_exec($conn,$req);
 }
 
 

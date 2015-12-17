@@ -53,4 +53,43 @@ function find_appart_loc($idLoc)
 }
 //trouver le contrat de location correspondant à un numéro d'utilisateur
 
+<<<<<<< HEAD
+
+function find_appart_prop($idProp)
+{
+  $req = 'SELECT appartement.IDAPPARTEMENT, URLPHOTO FROM
+    appartement WHERE IDUTILISATEUR='.$idProp;
+    return $req;
+}
+
+//INNER JOIN contratlocation ON paiement.IDCONTRAT = contratlocation.IDCONTRAT // INNER JOIN paiement ON plage.IDPLAGE = paiement.IDPLAGE 
+function ddlPlage($conn,$id){
+  $req = "SELECT plage.IDPLAGE, PLAGE 
+    FROM plage WHERE plage.IDPLAGE < 53 AND IDPLAGE NOT IN (SELECT IDPLAGE FROM paiement
+      INNER JOIN contratlocation ON paiement.IDCONTRAT = contratlocation.IDCONTRAT
+      WHERE IDAPPARTEMENT=".$id.");";
+  $result = odbc_exec($conn,$req);
+  while (odbc_fetch_row($result))
+  {
+    $plage = odbc_result($result, 2);
+    $id = odbc_result($result, 1);
+    echo '<option value='.$id.'>'.$plage.'</option>';
+  }
+}
+
+function ddlPlage2($conn,$id){
+  $req = "SELECT plage.IDPLAGE, PLAGE 
+    FROM plage WHERE plage.IDPLAGE BETWEEN 25 AND 32 AND IDPLAGE NOT IN (SELECT IDPLAGE FROM paiement
+      INNER JOIN contratlocation ON paiement.IDCONTRAT = contratlocation.IDCONTRAT
+      WHERE IDAPPARTEMENT=".$id.");";
+  $result = odbc_exec($conn,$req);
+  while (odbc_fetch_row($result))
+  {
+    $plage = odbc_result($result, 2);
+    $id = odbc_result($result, 1);
+    echo '<option value='.$id.'>'.$plage.'</option>';
+  }
+}
+=======
+>>>>>>> origin/master
 ?>

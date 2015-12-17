@@ -1,6 +1,8 @@
 <?php
 function getDebutSemaine($s) {
+	
 	switch ($s) {
+
 		case 25 : 
 		return "01/07/2016";
 		break;

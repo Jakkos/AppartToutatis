@@ -33,12 +33,11 @@ while(odbc_fetch_row($result)){
   $id = odbc_result($result, 1);
   $photo = odbc_result($result, 2);
   $titre = get_description_titre($conn, $id);
-  $description = get_description_total($conn, $id);
-  imprimer($id, $titre, $photo, $description);
+  imprimer($conn,$id, $titre, $photo);
 }
 odbc_close($conn);
 
-function imprimer($id, $titre, $photo, $description)  {
+function imprimer($conn, $id, $titre, $photo)  {
   echo '
   <div class="col-md-3 col-sm-6 hero-feature">
     <div class="thumbnail">
@@ -46,12 +45,45 @@ function imprimer($id, $titre, $photo, $description)  {
       <div class="caption">
         <h3>'.utf8_decode($titre).'</h3>
         <p>
-        <a href="appartement.php?id='.$id.'" class="btn btn-primary">Louer</a> <a href="#" class="btn btn-default">More Info</a>           
+        ';
+        $res = louerpar($conn,$id);
+        $nom = odbc_result($res, 1);
+        $prenom = odbc_result($res, 2);
+        if ($nom) {
+        echo 'Appartement loué par : '.$prenom.'  '.$nom;
+      }
+      else {
+        echo 'Appartement Libre';
+      }
+      if (isAvailable($conn,$id) || !$nom) {
+
+        echo '<a class="btn btn-primary" href="proprietaire_fonction.php?a=0&id='.$id.'" >Rendre Indisponible</a>';
+      }
+      else {
+       echo '<a class="btn btn-primary" href="proprietaire_fonction.php?a=1&id='.$id.'" >Rendre Disponible</a>'; 
+      }
+       echo '
         </p>
       </div>
     </div>
   </div>
   ';
+}
+
+function louerpar($conn,$id) {
+  $req = 'SELECT PRENOM,NOM from utilisateur INNER JOIN contratlocation ON contratlocation.IDUTILISATEUR = contratlocation.IDUTILISATEUR WHERE IDAPPARTEMENT='.$id;
+  return odbc_exec($conn,$req);
+}
+
+function isAvailable($conn,$id) {
+   $req = 'SELECT ESTDISPONIBLE FROM appartement WHERE IDAPPARTEMENT='.$id;
+   $res = odbc_exec($conn,$req);
+   if (odbc_result($res,1)) {
+    return true;
+   }
+   else {
+    return false;
+   }
 }
 // affichage de sa liste d'appartement
 // bouton payer
