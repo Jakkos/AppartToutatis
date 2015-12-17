@@ -1,4 +1,7 @@
 <?php 
+
+session_start();
+
 include ("modal.php") ;
 $dossierCourant = substr(getcwd(),strlen(getcwd())-14,14);
 $path ="";

@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once("repository.php");
 
 require_once("connexion.php");

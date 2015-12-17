@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -27,7 +28,9 @@
 </head>
 
 <body>
-  <?php include("navbar.php"); ?>
+  <?php 
+
+  require_once("navbar.php"); ?>
   <div class="container">
 
     <!-- Jumbotron Header -->
