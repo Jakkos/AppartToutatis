@@ -95,8 +95,9 @@ $req = "SELECT plage.IDPLAGE, PLAGE
 
 
 //.ddlPlage($conn,$id).
-
-echo
+if (isset(($_SESSION['utilisateur'])))
+{
+    echo
 '</select></td>      
                         <td><button class="btn btn-success" type="submit" href="contrat.php?id='.$id.'">Louer pour les vacances !</button></td>
 </form> 
@@ -108,6 +109,23 @@ elseif ($idtype==3) {
 
     echo '<table style="width:100%"><form method="post" action="contrat.php?id='.$id.'" name="plage_choix2">';
 echo '<tr><td><select name ="plage" class="form-control">';
+}
+else
+{
+    echo
+'</select></td>      
+                        <td><button class="btn btn-success" data-toggle="modal" data-target="#mod-ins"">Louer pour les vacances !</button></td>
+</form> 
+                        <td><a class="btn btn-success" id="louer">Contacter lagence</a></td></tr></table>';
+}
+elseif ($idtype==3) {
+    echo '
+                        <a class="btn btn-successdata-toggle="modal" data-target="#mod-ins"">Louer à lannée !</a><p></p>';
+
+    echo '<table style="width:100%"><form method="post" action="contrat.php?id='.$id.'" name="plage_choix2">';
+echo '<tr><td><select name ="plage" class="form-control">';
+}
+
 
 $req = "SELECT plage.IDPLAGE, PLAGE 
     FROM plage WHERE plage.IDPLAGE BETWEEN 25 AND 32 AND IDPLAGE NOT IN (SELECT IDPLAGE FROM paiement
