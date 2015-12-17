@@ -52,6 +52,11 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
           break;
           case '0':
           # ici EmployeAgence
+          echo <<<END
+          <li>
+          <a href="emp.php">Employé</a>
+          </li>
+END;
           break;
           case '2':
           # ici Locataire
