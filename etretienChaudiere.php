@@ -5,8 +5,8 @@ include 'connexion.php';
 $idappart = $_GET['id']; // id appartement à payer
 
 
-$update = "update dbo.appartement set DATEASSURANCE = getdate() where IDAPPARTEMENT = $idappart;";
+$update = "update appartement.dbo set DATEASSURANCE = getdate() where IDAPPARTEMENT = $idappart;";
 $result = odbc_exec($conn,$update);
 
-//header ('Location: locataire.php');
+header ('Location: locataire.php');
 ?>
