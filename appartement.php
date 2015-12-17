@@ -78,8 +78,8 @@ while(odbc_fetch_row($result)){
                     <div class="text-right">
                     <?php 
                     if ($idtype==2) {
-    echo '<form method="post" action="contrat.php?id='.$id.'" name="plage_choix">';
-echo '<p><select name ="plage" class="form-control">';
+    echo '<table style="width:100%"><form method="post" action="contrat.php?id='.$id.'" name="plage_choix">';
+echo '<tr><td><select name ="plage" class="form-control">';
 
 $req = "SELECT plage.IDPLAGE, PLAGE 
     FROM plage WHERE plage.IDPLAGE < 53 AND IDPLAGE NOT IN (SELECT IDPLAGE FROM paiement
@@ -97,17 +97,17 @@ $req = "SELECT plage.IDPLAGE, PLAGE
 //.ddlPlage($conn,$id).
 
 echo
-'</select></p>         
-                        <button class="btn btn-success" type="submit" href="contrat.php?id='.$id.'">Louer pour les vacances !</button>
+'</select></td>      
+                        <td><button class="btn btn-success" type="submit" href="contrat.php?id='.$id.'">Louer pour les vacances !</button></td>
 </form> 
-                        <a class="btn btn-success" id="louer">Contacter lagence</a>';
+                        <td><a class="btn btn-success" id="louer">Contacter lagence</a></td></tr></table>';
 }
 elseif ($idtype==3) {
     echo '
                         <a class="btn btn-success data-toggle="modal" data-target="#mod-contrat" href="contrat.php?id='.$id.'">Louer à lannée !</a><p></p>';
 
-    echo '<form method="post" action="contrat.php?id='.$id.'" name="plage_choix2">';
-echo '<p><select name ="plage" class="form-control">';
+    echo '<table style="width:100%"><form method="post" action="contrat.php?id='.$id.'" name="plage_choix2">';
+echo '<tr><td><select name ="plage" class="form-control">';
 
 $req = "SELECT plage.IDPLAGE, PLAGE 
     FROM plage WHERE plage.IDPLAGE BETWEEN 25 AND 32 AND IDPLAGE NOT IN (SELECT IDPLAGE FROM paiement
@@ -125,16 +125,14 @@ $req = "SELECT plage.IDPLAGE, PLAGE
 //.ddlPlage($conn,$id).
 
 echo
-'</select></p>         
-                        <button class="btn btn-success" type="submit" href="contrat.php?id='.$id.'">Louer pour les vacances !</button>
+'</select></td>      
+                        <td><button class="btn btn-success" type="submit" href="contrat.php?id='.$id.'">Louer pour les vacances !</button></td>
 </form> 
-                        <a class="btn btn-success" id="louer">Contacter lagence</a>';
+                        <td><a class="btn btn-success" id="louer">Contacter lagence</a></td></tr></table>';
 } else {
-echo '
-                        <a class="btn btn-success data-toggle="modal" data-target="#mod-contrat" href="contrat.php?id='.$id.'">Louer!</a>
-
-                        <a class="btn btn-success" id="louer">Contacter lagence</a>
-';
+echo '<table style="width:100%">
+        <tr><td><a class="btn btn-success data-toggle="modal" data-target="#mod-contrat" href="contrat.php?id='.$id.'">Louer!</a></td>
+        <td><a class="btn btn-success" id="louer">Contacter lagence</a></td></tr></table>';
 }?>
                     </div>
 
