@@ -73,22 +73,22 @@ END;
           # ici Propriétaire
           echo <<<END
           <li>
-          <a href="UserPage.php">Propriétaire</a>
+          <a href="proprietaire.php">Propriétaire</a>
           </li>
 END;
           break;  
           case '6':
           echo <<<END
           <li>
-          <a href="#">Locataire</a>
+          <a href="locataire.php">Locataire</a>
           </li>
           <li>
-          <a href="UserPage.php">Propriétaire</a>
+          <a href="proprietaire.php">Propriétaire</a>
           </li>
 END;
           # ici LocataireProprietaire
           break;
-          case '8':
+          case '9':
           # ici UtilisateurConnecte
           break;
 
