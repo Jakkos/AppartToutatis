@@ -7,7 +7,7 @@ include 'requete_admin.php';
 		echo <<<END
 			<!DOCTYPE html>
 			<head>
-			  <meta charset="utf-8">
+			 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 			  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 			  <meta name="viewport" content="width=device-width, initial-scale=1">
 			  <meta name="description" content="">
@@ -21,38 +21,6 @@ include 'requete_admin.php';
 			  <link href="../css/mine.css" rel="stylesheet">
 			</head>
 			<body>
-				<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-					<div class="container">
-					  <!-- Brand and toggle get grouped for better mobile display -->
-
-					  <!-- Collect the nav links, forms, and other content for toggling -->
-					  <div>
-						<a class="navbar-brand" href="#">Appartout'Atis</a>
-						<ul class="nav navbar-nav" id="access">
-						  <li>
-							<a href="#">Meublés</a>
-						  </li>
-						  <li>
-							<a href="#">A l'année</a>
-						  </li>
-						  <li>
-							<a href="#">Vacances</a>
-						  </li>
-						</ul>
-						<ul class="nav navbar-nav" id="identification">
-						  <li>
-							<button class= "btn btn-default navbar-btn" data-toggle="modal" data-target="#mod-con">Connexion</button>
-						  </li>
-						  <li>
-							<button class= "btn btn-default navbar-btn" data-toggle="modal" data-target="#mod-ins">Inscription</button>
-						  </li>
-						</ul>
-					  </div>
-					  <!-- /.navbar-collapse -->
-
-					</div>
-					<!-- /.container -->
-				</nav>
 END;
 	}
 	
@@ -78,14 +46,14 @@ END;
 			<div id="emp" class="container" style="display:block;">
 				<div class="row">
 					<div class="col-md-8" style="border: 1px solid black">
-						<h3 align="center">Ajouter un Employé</h4>
+						<h3 align="center">Ajouter un Employé</h3>
 END;
 		formulaireInsEmp($conn);
 		echo <<<END
 					</div>
 					<div class="col-md-1"></div>
 					<div class="col-md-3" style="border: 1px solid black">
-						<h3 align="center">Changer Etat Compte</h4>
+						<h3 align="center">Changer Etat Compte</h3>
 END;
 		afficheListeUser($conn);
 		echo <<<END
@@ -94,8 +62,18 @@ END;
 			</div>
 			<div id="stat" class="container" style="display:none;">
 				<div class="row">
-					<div class="col-md-12" style="border: 1px solid black;">
-						<h3 align="center">Statistiques</h4>
+					<div class="col-md-4" style="border: 1px solid black;">
+						<h3 align="center">Répartition Utilisateurs</h3>
+END;
+		afficheRepUsr($conn);
+		echo <<<END
+					</div>
+					<div class="col-md-1"></div>
+					<div class="col-md-4" style="border: 1px solid black;">
+						<h3 align="center">Répartition Appartement</h3>
+END;
+		afficheRepApp($conn);
+		echo <<<END
 					</div>
 				</div> 
 			</div>
@@ -165,4 +143,40 @@ END;
         	</table>
 END;
 	}
+
+function afficheRepUsr($conn){
+	$req = "SELECT vil.NOMVILLE, count(usr.IDUTILISATEUR)
+		FROM dbo.utilisateur usr, dbo.adresse adr, dbo.ville vil
+		WHERE usr.IDADRESSE = adr.IDADRESSE
+		AND vil.IDVILLE = adr.IDVILLE
+		GROUP BY vil.NOMVILLE";
+	$result = odbc_exec($conn,$req);
+	echo '<table style="width:90%;"><TR><TD align="center"><b>Ville</b></TD><TD align="center"><b>NB User</b></TD></TR>';
+	while(odbc_fetch_row($result)){
+	  $ville = odbc_result($result, 1);
+	  $usr = odbc_result($result, 2);
+	  echo '<tr><td align="center">'.$ville.'</td>
+	  			<td align="center">'.$usr.'</td>
+	  		</tr>';
+	}
+	echo '</table>';
+}
+
+function afficheRepApp($conn){
+	$req = "SELECT typ.NOMTYPE, count(app.IDAPPARTEMENT)
+		FROM dbo.type typ, dbo.appartement app
+		WHERE typ.IDTYPE = app.IDTYPE
+		GROUP BY typ.NOMTYPE";
+	$result = odbc_exec($conn,$req);
+	echo '<table style="width:90%;"><TR><TD align="center"><b>Type</b></TD><TD align="center"><b>NB Appart</b></TD></TR>';
+	while(odbc_fetch_row($result)){
+	  $ville = odbc_result($result, 1);
+	  $usr = odbc_result($result, 2);
+
+	  echo '<tr><td align="center">'.$ville.'</td>
+	  			<td align="center">'.$usr.'</td>
+	  		</tr>';
+	}
+	echo '</table>';
+}
 ?>
