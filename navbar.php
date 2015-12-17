@@ -50,7 +50,7 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
             echo "<li><a href='administration/oi_admin.php'>Administration</a></li>";
           }
           break;
-          case '0':
+          case '3':
           # ici EmployeAgence
           echo <<<END
           <li>
@@ -58,7 +58,7 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
           </li>
 END;
           break;
-          case '2':
+          case '4':
           # ici Locataire
           echo <<<END
           <li>
@@ -66,7 +66,7 @@ END;
           </li>
 END;
           break; 
-          case '3':
+          case '5':
           # ici Propriétaire
           echo <<<END
           <li>
@@ -74,7 +74,7 @@ END;
           </li>
 END;
           break;  
-          case '4':
+          case '6':
           echo <<<END
           <li>
           <a href="#">Locataire</a>
@@ -85,7 +85,7 @@ END;
 END;
           # ici LocataireProprietaire
           break;
-          case '5':
+          case '8':
           # ici UtilisateurConnecte
           break;
 
