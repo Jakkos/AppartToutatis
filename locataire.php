@@ -35,11 +35,11 @@ while(odbc_fetch_row($result)){
   //$photo = odbc_result($result, 2);
   $titre = get_description_titre($conn, $id);
   $description = get_description_total($conn, $id);
-  imprimer($id, $titre, $description);
+  imprimer($conn, $id, $titre, $description);
 }
 odbc_close($conn);
 
-function imprimer($id, $titre , $description)  {
+function imprimer($conn, $id, $titre , $description)  {
   echo '
   <div class="col-md-3 col-sm-6 hero-feature">
     <div class="thumbnail">
@@ -49,13 +49,25 @@ function imprimer($id, $titre , $description)  {
         <p>
         <a href="appartement.php?id='.$id.'" class="btn btn-primary">Louer</a> <a href="#" class="btn btn-default">More Info</a>   
         <a href="payer.php?id='.$id.'" class="btn btn-default">Payer</a>
-        <a href="#" class="btn btn-default">Entretien Chaudiere</a> 
-        <a href="depotPreavis.php?id='.$id.'" class="btn btn-default">Préavis</a>             
-        </p>
+        <a href="#" class="btn btn-default">Entretien Chaudiere</a>';
+echo '
+        <a href="depotPreavis.php?id='.$id.'" class="btn btn-default">Préavis</a>';
+        
+        if (findtype($conn,$id)==1) {
+        echo '<p>Votre contrat se termine le : '.getDateFL($conn,$id).'</p>';
+        echo '<a href="demandeProlongation.php?id='.$id.'" class="btn btn-default">Prolongement Bail</a>';                
+      }
+echo '        </p>
       </div>
     </div>
   </div>
   ';
+}
+
+function getDateFL($conn,$id) {
+  $req = "SELECT CONVERT(VARCHAR,DATEFINLOC,103) FROM contratlocation WHERE IDAPPARTEMENT=".$id;
+  $res = odbc_exec($conn,$req);
+  return odbc_result($res,1);
 }
 // affichage de sa liste d'appartement
 // bouton payer

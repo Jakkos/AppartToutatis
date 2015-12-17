@@ -54,14 +54,14 @@ function imprimer($conn, $id, $titre, $photo)  {
       }
       else {
         echo 'Appartement Libre';
-      }
-      if (isAvailable($conn,$id) || !$nom) {
+      if (isAvailable($conn,$id)) {
 
         echo '<a class="btn btn-primary" href="proprietaire_fonction.php?a=0&id='.$id.'" >Rendre Indisponible</a>';
       }
       else {
        echo '<a class="btn btn-primary" href="proprietaire_fonction.php?a=1&id='.$id.'" >Rendre Disponible</a>'; 
       }
+    }
        echo '
         </p>
       </div>

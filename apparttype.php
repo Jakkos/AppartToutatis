@@ -27,7 +27,6 @@ END;
 include 'navbar.php';
 
 
-
 $req = get_type($_GET['type']);
 $result = odbc_exec($conn,$req);
 while(odbc_fetch_row($result)){

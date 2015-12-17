@@ -56,6 +56,11 @@ $conn = odbc_connect($dsn,$user,"azerty");
 	$req = "use M1_GroupeD";
 	odbc_exec($conn,$req);
 
+	//req = "alter table contratlocation add DMDPROLONG tinyint null";
+
+//$req = "dump tran M1_GroupeD with no_log";
+//	odbc_exec($conn,$req);	
+
 	//User1_GroupeA   azerty visiteur => connexion auto dessus 			uid:7
 	// ET on les change ici 
 	//User1_GroupeD    chefagence     uid:1

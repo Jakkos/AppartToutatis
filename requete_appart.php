@@ -48,7 +48,7 @@ function find_appart_loc($idLoc)
 {
   $req = 'SELECT contratlocation.IDAPPARTEMENT FROM
     contratlocation INNER JOIN appartement ON appartement.IDAPPARTEMENT = contratlocation.IDAPPARTEMENT 
-    WHERE contratlocation.IDUTILISATEUR='.$idLoc.' AND contratlocation.DATEDEBUTLOC is not null';
+    WHERE contratlocation.IDUTILISATEUR='.$idLoc.' AND contratlocation.DATEDEBUTLOC > convert(datetime,"01/01/1970",103) AND contratlocation.DATEFINLOC > getdate()';
     return $req;
 }
 //trouver le contrat de location correspondant à un numéro d'utilisateur
@@ -88,5 +88,11 @@ function ddlPlage2($conn,$id){
     $id = odbc_result($result, 1);
     echo '<option value='.$id.'>'.$plage.'</option>';
   }
+}
+
+function findtype($conn,$id) {
+  $req = "SELECT IDTYPE FROM appartement";
+  $res = odbc_exec($conn,$req);
+  return odbc_result($res, 1);
 }
 ?>

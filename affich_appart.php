@@ -36,7 +36,7 @@ function imprimer($id, $titre, $photo, $description)  {
       <div class="caption">
         <h3>'.utf8_decode($titre).'</h3>
         <p>
-        <a href="appartement.php?id='.$id.'" class="btn btn-primary">Louer</a> <a href="#" class="btn btn-default">More Info</a>           
+        <a href="appartement.php?id='.$id.'" class="btn btn-primary">Voir Infos</a> <a href="#"</a>           
         </p>
       </div>
     </div>
