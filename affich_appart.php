@@ -15,7 +15,6 @@ $req = "select IDAPPARTEMENT,URLPHOTO from appartement";
 
 odbc_close($conn);/*
 */
-include ('connexion.php');
 include ('requete_appart.php');
 
 $req = find_appart(0);

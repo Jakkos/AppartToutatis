@@ -1,8 +1,15 @@
 <?php
 function get_appart($id) {
-	$req = 'SELECT IDAPPARTEMENT, URLPHOTO FROM appartement 
-	 WHERE appartement.IDAPPARTEMENT = '.$id;
+	$req = 'SELECT IDAPPARTEMENT, URLPHOTO, NOMTYPE FROM appartement 
+   INNER JOIN type ON appartement.IDTYPE = type.IDTYPE WHERE appartement.IDAPPARTEMENT = '.$id;
 	  return $req;
+}
+
+function get_type($type) {
+  $req = 'SELECT IDAPPARTEMENT, URLPHOTO FROM appartement 
+   WHERE appartement.IDTYPE = '.$type;
+    return $req;
+
 }
 
 function get_loyer($conn, $id) {

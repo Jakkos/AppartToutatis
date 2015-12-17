@@ -13,13 +13,13 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
     <a class="navbar-brand" href="<?php echo $path;?>index.php">Appartout'Atis</a>
     <ul class="nav navbar-nav" id="access">
       <li>
-        <a href="#">Meublés</a>
+        <a href="apparttype.php?type=1">Meublés</a>
       </li>
       <li>
-        <a href="#">A l'année</a>
+        <a href="apparttype.php?type=3">A l'année</a>
       </li>
       <li>
-        <a href="#">Vacances</a>
+        <a href="apparttype.php?type=2">Vacances</a>
       </li>
       <?php
       genererBarreNav($path);
