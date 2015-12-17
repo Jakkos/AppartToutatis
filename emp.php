@@ -25,8 +25,22 @@ if (isset($_POST['idValC'])){
 	}else{
 		$mois++;
 	}
-	$chaine = '01/'.$mois.'/'.$annee;
-	$req = "UPDATE dbo.contrat_a_valider SET DATEDEBUTLOC = convert(datetime, '$chaine', 101) WHERE IDCONTRAT = $idValC";
+	$deb = '01/'.$mois.'/'.$annee;
+	$req = "SELECT IDTYPE FROM dbo.appartement app, dbo.contratlocation con WHERE con.IDAPPARTEMENT = app.IDAPPARTEMENT AND con.IDCONTRAT = $idValC";
+	$res = odbc_exec($conn, $req);
+	$type = odbc_result($res, 1);
+
+	$fin = '31/06/';
+	if($type == 1){
+		$annee = $annee + 3;
+		$fin = '01/'.$mois.'/'.$annee;
+	}else if ($type == 3){
+		$annee = $annee + 1;
+		$fin = $fin = '31/06/'.$annee;
+	}
+	$req = "UPDATE dbo.contrat_a_valider SET DATEDEBUTLOC = convert(datetime, '$deb', 101) WHERE IDCONTRAT = $idValC";
+	$res = odbc_exec($conn, $req);
+	$req = "UPDATE dbo.contrat_a_valider SET DATEFINLOC = convert(datetime, '$fin', 101) WHERE IDCONTRAT = $idValC";
 	$res = odbc_exec($conn, $req);
 }
 if (isset($_POST['idSupC'])){
