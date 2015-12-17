@@ -123,7 +123,7 @@ END;
 				    	<td align="center"><input type="text" class="span3" name="adr" placeholder="Adresse"></td>
 				    	<td align="center"><select style="width:80%;" name ="ville" class="form-control">
 END;
-		$result = odbc_exec($conn,"SELECT IDVILLE, NOMVILLE from ville;");
+		$result = odbc_exec($conn,"SELECT IDVILLE, NOMVILLE from dbo.ville;");
 		while (odbc_fetch_row($result)){
 		    $nomville = odbc_result($result, 2);
 		    $id = odbc_result($result, 1);
