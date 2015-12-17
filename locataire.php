@@ -47,7 +47,10 @@ function imprimer($id, $titre , $description)  {
       <div class="caption">
         <h3>'.utf8_decode($titre).'</h3>
         <p>
-        <a href="appartement.php?id='.$id.'" class="btn btn-primary">Louer</a> <a href="#" class="btn btn-default">More Info</a>          
+        <a href="appartement.php?id='.$id.'" class="btn btn-primary">Louer</a> <a href="#" class="btn btn-default">More Info</a>   
+        <a href="payer.php?id='.$id.'" class="btn btn-default">Payer</a>
+        <a href="#" class="btn btn-default">Entretien Chaudiere</a> 
+        <a href="depotPreavis.php?id='.$id.'" class="btn btn-default">Préavis</a>             
         </p>
       </div>
     </div>
@@ -75,3 +78,4 @@ function imprimer($id, $titre , $description)  {
 
 </div>
 </body>
+

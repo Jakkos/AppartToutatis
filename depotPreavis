@@ -1,0 +1,8 @@
+<?php
+
+require_once('requete_appart.php');
+include 'connexion.php';
+
+$idappart = $_GET['id'];
+
+?>

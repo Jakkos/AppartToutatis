@@ -1,6 +1,6 @@
 <?php
 function get_appart($id) {
-	$req = 'SELECT IDAPPARTEMENT, URLPHOTO, NOMTYPE FROM appartement 
+	$req = 'SELECT IDAPPARTEMENT, URLPHOTO, NOMTYPE, appartement.IDTYPE FROM appartement 
    INNER JOIN type ON appartement.IDTYPE = type.IDTYPE WHERE appartement.IDAPPARTEMENT = '.$id;
 	  return $req;
 }
@@ -51,4 +51,6 @@ function find_appart_loc($idLoc)
     WHERE contratlocation.IDUTILISATEUR='.$idLoc.' AND contratlocation.DATEDEBUTLOC is not null';
     return $req;
 }
+//trouver le contrat de location correspondant à un numéro d'utilisateur
+
 ?>
