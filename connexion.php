@@ -39,7 +39,7 @@ if (isset( $_SESSION['idsysuser']))
 		$db = "M1_GroupeA";
 		break;
 		case '8':
-		$user = "User2_GroupeA";
+		$user = "User1_GroupeB";
 		$db = "M1_GroupeA";
 		break;
 		default:
