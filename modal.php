@@ -19,11 +19,9 @@ function connexion($conn){
   $req = "select IDUTILISATEUR from utilisateur WHERE MAIL = '$mail';";
   $result = odbc_exec($conn,$req);
   $id = odbc_result($result, 1);
-  echo $id;
   $req = "select IDSYSUSER from utilisateur WHERE MAIL = '$mail';";
   $result = odbc_exec($conn,$req);
   $sysuser = odbc_result($result, 1);
-  echo $sysuser;
 // while(odbc_fetch_row($result)){
 //   $id = odbc_result($result, 1);
     $_SESSION['idsysuser'] = $sysuser;
