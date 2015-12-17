@@ -26,6 +26,7 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
       </li>
       <?php
       genererBarreNav($path);
+      
       ?> 
       <!-- /.navbar-collapse -->
     </div>
@@ -39,7 +40,6 @@ if ($dossierCourant != "AppartToutatis"){//csiprojectsite
   function genererBarreNav($path){
     if (isset($_SESSION["utilisateur"]))
     { 
-
       echo '<li><a href="'.$path.'mon_compte.php">Mon Compte</a></li>';
       if (isset($_SESSION["idsysuser"]))
       {

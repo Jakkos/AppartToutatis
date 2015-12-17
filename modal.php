@@ -24,8 +24,11 @@ function connexion($conn){
   $sysuser = odbc_result($result, 1);
 // while(odbc_fetch_row($result)){
 //   $id = odbc_result($result, 1);
+  if($id!=false){
     $_SESSION['idsysuser'] = $sysuser;
     $_SESSION['utilisateur'] = $id;
+  }
+    
   }
 }
 
