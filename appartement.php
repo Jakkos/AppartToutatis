@@ -77,46 +77,8 @@ while(odbc_fetch_row($result)){
 
                     <div class="text-right">
                     <?php 
-                    if(isset($_SESSION['utilisateur']))
-                    {
-                        echo '
-                        
-<div id="mod-ins" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Inscrivez vous ! </h4>
-      </div>
-      <div class="modal-body">
-        <form method="post" action='' name="login_form">
-          <p><input type="text" class="span3" name="nom" placeholder="Nom"></p>
-          <p><input type="text" class="span3" name="prenom" placeholder="Prénom"></p>
-          <p><input type="text" class="span3" name="mail" id="email" placeholder="Email"></p>
-          <p><input type="text" class="span3" name="tel" placeholder="Telephonne"></p>
-          <p><input type="password" class="span3" name="pass" placeholder="Mot de passe"></p>
-
-          <p><input type="text" class="span3" name="num" placeholder="n°"><input type="text" class="span3" name="adr" placeholder="rue"></p>
-          <p><select name ="ville" class="form-control"><?php ddlVille($conn); ?></select></p>          
-          <p><button type="submit" class="btn btn-primary">Sign in</button>
-            <input type="hidden" name="Inscription" value="true">
-            <a href="#">Forgot Password?</a>
-          </p>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-                        '
-                    }
-                    elseif ($idtype==2) {
+                    if (isset($_SESSION['utilisateur'])) {
+                    if ($idtype==2) {
     echo '<table style="width:100%"><form method="post" action="contrat.php?id='.$id.'" name="plage_choix">';
 echo '<tr><td><select name ="plage" class="form-control">';
 
@@ -172,7 +134,21 @@ echo
 echo '<table style="width:100%">
         <tr><td><a class="btn btn-success data-toggle="modal" data-target="#mod-contrat" href="contrat.php?id='.$id.'">Louer!</a></td>
         <td><a class="btn btn-success" id="louer">Contacter lagence</a></td></tr></table>';
-}?>
+}
+}
+else {
+
+echo '<a href = "index.php">Inscription pour louer !</a>';
+
+
+
+
+
+
+}
+
+
+?>
                     </div>
 
                 </div>
