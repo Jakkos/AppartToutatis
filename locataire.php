@@ -49,7 +49,8 @@ function imprimer($conn, $id, $titre , $description)  {
         <p>
         <a href="appartement.php?id='.$id.'" class="btn btn-primary">Louer</a> <a href="#" class="btn btn-default">More Info</a>   
         <a href="payer.php?id='.$id.'" class="btn btn-default">Payer</a>
-        <a href="#" class="btn btn-default">Entretien Chaudiere</a>';
+        <a href="etretienChaudiere.php?id='.$id.'" class="btn btn-default">Entretien Chaudiere</a>
+        <a href="assurance.php?id='.$id.'" class="btn btn-default">Assurance</a>';
 echo '
         <a href="depotPreavis.php?id='.$id.'" class="btn btn-default">Préavis</a>';
         
