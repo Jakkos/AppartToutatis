@@ -26,7 +26,7 @@
 	  $tel=(is_numeric($_POST['tel']) ? (int)$_POST['tel'] : 0); //int 
 	  $password=trim($_POST["pass"]); //chaine
 	  $estouvert=1; //int
-	  $idsysuser=0; //int
+	  $idsysuser=3; //int
 
 	  Utilisateur::addUser($conn,$idadresse,$nom,$prenom,$mail,$tel,$password,$estouvert,$idsysuser);
 	}

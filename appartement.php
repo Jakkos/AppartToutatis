@@ -45,13 +45,18 @@
 
 include ('requete_appart.php');
 include ('connexion.php');
+
+
+
+
 $loyer = get_loyer($conn,$_GET['id']);
 $req = get_appart($_GET['id']);
 $result = odbc_exec($conn,$req);
 while(odbc_fetch_row($result)){
   $id = odbc_result($result, 1);
   $photo = odbc_result($result, 2);
-  $type = odbc_result($result, 3);
+  $idtype = odbc_result($result, 3);
+  $type = odbc_result($result, 4);
   $titre = get_description_titre($conn, $_GET['id']);
   $description = get_description_total($conn, $_GET['id']);
 }
@@ -62,7 +67,7 @@ while(odbc_fetch_row($result)){
                         <h4 class="pull-right">'.$loyer.'  €</h4>
                         <h4><a href="#">'.$titre.'</a>
                         </h4>
-                        <p>'.$description.'</p>
+                        <p>'.utf8_encode($description).'</p>
                         <h3>'.$type.'</h3>
                     </div>
                     '; ?>
@@ -71,8 +76,64 @@ while(odbc_fetch_row($result)){
                 <div class="well">
 
                     <div class="text-right">
-                        <a class="btn btn-success" id="louer">Contacter l'agence</a>
-                        <?php echo '<a class="btn btn-success data-toggle="modal" data-target="#mod-contrat" href="contrat.php?id='.$id.'">Louer!</a>' ?>
+                    <?php 
+                    if ($idtype==2) {
+    echo '<table style="width:100%"><form method="post" action="contrat.php?id='.$id.'" name="plage_choix">';
+echo '<tr><td><select name ="plage" class="form-control">';
+
+$req = "SELECT plage.IDPLAGE, PLAGE 
+    FROM plage WHERE plage.IDPLAGE < 53 AND IDPLAGE NOT IN (SELECT IDPLAGE FROM paiement
+      INNER JOIN contratlocation ON paiement.IDCONTRAT = contratlocation.IDCONTRAT
+      WHERE IDAPPARTEMENT=".$id.");";
+  $result = odbc_exec($conn,$req);
+  while (odbc_fetch_row($result))
+  {
+    $plage = odbc_result($result, 2);
+    $id = odbc_result($result, 1);
+    echo '<option value='.$id.'>'.$plage.'</option>';
+}
+
+
+//.ddlPlage($conn,$id).
+
+echo
+'</select></td>      
+                        <td><button class="btn btn-success" type="submit" href="contrat.php?id='.$id.'">Louer pour les vacances !</button></td>
+</form> 
+                        <td><a class="btn btn-success" id="louer">Contacter lagence</a></td></tr></table>';
+}
+elseif ($idtype==3) {
+    echo '
+                        <a class="btn btn-success data-toggle="modal" data-target="#mod-contrat" href="contrat.php?id='.$id.'">Louer à lannée !</a><p></p>';
+
+    echo '<table style="width:100%"><form method="post" action="contrat.php?id='.$id.'" name="plage_choix2">';
+echo '<tr><td><select name ="plage" class="form-control">';
+
+$req = "SELECT plage.IDPLAGE, PLAGE 
+    FROM plage WHERE plage.IDPLAGE BETWEEN 25 AND 32 AND IDPLAGE NOT IN (SELECT IDPLAGE FROM paiement
+      INNER JOIN contratlocation ON paiement.IDCONTRAT = contratlocation.IDCONTRAT
+      WHERE IDAPPARTEMENT=".$id.");";
+  $result = odbc_exec($conn,$req);
+  while (odbc_fetch_row($result))
+  {
+    $plage = odbc_result($result, 2);
+    $id = odbc_result($result, 1);
+    echo '<option value='.$id.'>'.$plage.'</option>';
+}
+
+
+//.ddlPlage($conn,$id).
+
+echo
+'</select></td>      
+                        <td><button class="btn btn-success" type="submit" href="contrat.php?id='.$id.'">Louer pour les vacances !</button></td>
+</form> 
+                        <td><a class="btn btn-success" id="louer">Contacter lagence</a></td></tr></table>';
+} else {
+echo '<table style="width:100%">
+        <tr><td><a class="btn btn-success data-toggle="modal" data-target="#mod-contrat" href="contrat.php?id='.$id.'">Louer!</a></td>
+        <td><a class="btn btn-success" id="louer">Contacter lagence</a></td></tr></table>';
+}?>
                     </div>
 
                 </div>
