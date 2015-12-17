@@ -55,8 +55,8 @@ $result = odbc_exec($conn,$req);
 while(odbc_fetch_row($result)){
   $id = odbc_result($result, 1);
   $photo = odbc_result($result, 2);
-  $idtype = odbc_result($result, 3);
-  $type = odbc_result($result, 4);
+  $type = odbc_result($result, 3);
+  $idtype = odbc_result($result, 4);
   $titre = get_description_titre($conn, $_GET['id']);
   $description = get_description_total($conn, $_GET['id']);
 }

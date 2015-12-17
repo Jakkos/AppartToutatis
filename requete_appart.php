@@ -53,7 +53,6 @@ function find_appart_loc($idLoc)
 }
 //trouver le contrat de location correspondant à un numéro d'utilisateur
 
-<<<<<<< HEAD
 
 function find_appart_prop($idProp)
 {
@@ -90,6 +89,4 @@ function ddlPlage2($conn,$id){
     echo '<option value='.$id.'>'.$plage.'</option>';
   }
 }
-=======
->>>>>>> origin/master
 ?>
