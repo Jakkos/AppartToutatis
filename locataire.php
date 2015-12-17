@@ -32,18 +32,18 @@ $req = find_appart_loc(1);
 $result = odbc_exec($conn,$req);
 while(odbc_fetch_row($result)){
   $id = odbc_result($result, 1);
-  $photo = odbc_result($result, 2);
+  //$photo = odbc_result($result, 2);
   $titre = get_description_titre($conn, $id);
   $description = get_description_total($conn, $id);
-  imprimer($id, $titre, $photo, $description);
+  imprimer($id, $titre, $description);
 }
 odbc_close($conn);
 
-function imprimer($id, $titre, $photo, $description)  {
+function imprimer($id, $titre , $description)  {
   echo '
   <div class="col-md-3 col-sm-6 hero-feature">
     <div class="thumbnail">
-      <img src="'.$photo.'" alt="">
+      
       <div class="caption">
         <h3>'.utf8_decode($titre).'</h3>
         <p>
