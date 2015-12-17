@@ -34,7 +34,7 @@
     <header class="jumbotron hero-spacer">
       <h1>Bievenue sur ApartoutAtis !</h1>
       <p>Prenez un peu de potion magique et trouvez la location de vos rêves sur AppartoutAtis.</p>
-      <p><a class="btn btn-primary btn-large">Call to action!</a>
+      <p><a class="btn btn-primary btn-large" href="ajout_appart.php">Ajoutez votre appartement ! </a>
       </p>
     </header>
 

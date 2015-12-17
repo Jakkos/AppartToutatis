@@ -1,10 +1,17 @@
 <?php
 include 'administration/c_admin.php';
 include 'connexion.php';
-include 'navbar.php';
+require_once('navbar.php');
 if(isset($_POST['creerContrat'])) {
 	creation_contrat($conn);
   echo 'ok';
+  header("location : index.php");
+}
+
+
+if (isset($_POST['plage'])) {
+  creation_contrat2($conn);
+
 }
 
 function creation_contrat($conn){
@@ -16,6 +23,18 @@ function creation_contrat($conn){
 VALUES ('.$id.','.$user.',CONVERT(DATETIME,"01/01/1970",103),CONVERT(DATETIME,"01/01/1970",103))';
 odbc_exec($conn,$req);
 }
+
+function creation_contrat2($conn){
+      $id = $_GET['id'];
+      $plage = $_POST['plage'];
+      if (isset($_SESSION['utilisateur'])) {
+        $user = $_SESSION['utilisateur'];  
+    }
+    $req = 'INSERT INTO  contratlocation (IDAPPARTEMENT,IDUTILISATEUR,DATEDEBUTLOC,DATEFINLOC)
+VALUES ('.$id.','.$user.',CONVERT(DATETIME,"01/01/1970",103),CONVERT(DATETIME,"01/01/1970",103))';
+odbc_exec($conn,$req);
+}
+
 
 echo <<<END
 			<!DOCTYPE html>

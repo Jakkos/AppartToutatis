@@ -1,6 +1,6 @@
 <?php
 function get_appart($id) {
-	$req = 'SELECT IDAPPARTEMENT, URLPHOTO, NOMTYPE FROM appartement 
+	$req = 'SELECT IDAPPARTEMENT, URLPHOTO, appartement.IDTYPE, NOMTYPE FROM appartement 
    INNER JOIN type ON appartement.IDTYPE = type.IDTYPE WHERE appartement.IDAPPARTEMENT = '.$id;
 	  return $req;
 }
@@ -50,5 +50,35 @@ function find_appart_loc($idLoc)
     contratlocation INNER JOIN appartement ON appartement.IDAPPARTEMENT = contratlocation.IDAPPARTEMENT 
     WHERE contratlocation.IDUTILISATEUR='.$idLoc.' AND contratlocation.DATEDEBUTLOC is not null';
     return $req;
+}
+
+
+//INNER JOIN contratlocation ON paiement.IDCONTRAT = contratlocation.IDCONTRAT // INNER JOIN paiement ON plage.IDPLAGE = paiement.IDPLAGE 
+function ddlPlage($conn,$id){
+  $req = "SELECT plage.IDPLAGE, PLAGE 
+    FROM plage WHERE plage.IDPLAGE < 53 AND IDPLAGE NOT IN (SELECT IDPLAGE FROM paiement
+      INNER JOIN contratlocation ON paiement.IDCONTRAT = contratlocation.IDCONTRAT
+      WHERE IDAPPARTEMENT=".$id.");";
+  $result = odbc_exec($conn,$req);
+  while (odbc_fetch_row($result))
+  {
+    $plage = odbc_result($result, 2);
+    $id = odbc_result($result, 1);
+    echo '<option value='.$id.'>'.$plage.'</option>';
+  }
+}
+
+function ddlPlage2($conn,$id){
+  $req = "SELECT plage.IDPLAGE, PLAGE 
+    FROM plage WHERE plage.IDPLAGE BETWEEN 25 AND 32 AND IDPLAGE NOT IN (SELECT IDPLAGE FROM paiement
+      INNER JOIN contratlocation ON paiement.IDCONTRAT = contratlocation.IDCONTRAT
+      WHERE IDAPPARTEMENT=".$id.");";
+  $result = odbc_exec($conn,$req);
+  while (odbc_fetch_row($result))
+  {
+    $plage = odbc_result($result, 2);
+    $id = odbc_result($result, 1);
+    echo '<option value='.$id.'>'.$plage.'</option>';
+  }
 }
 ?>
