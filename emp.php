@@ -2,6 +2,7 @@
 include 'connexion.php';
 include 'navbar.php';
 include 'administration/dynamic.js';
+require_once 'fonction.php';
 
 if (isset($_POST['idVal'])){
 	$id = (is_numeric($_POST['idVal']) ? (int)$_POST['idVal'] : 0);
@@ -17,6 +18,12 @@ if (isset($_POST['idSup'])){
 }
 if (isset($_POST['idValC'])){
 	$idValC = (is_numeric($_POST['idValC']) ? (int)$_POST['idValC'] : 0);
+	$req = "SELECT IDTYPE FROM appartement INNER JOIN contratlocation ON contratlocation.IDAPPARTEMENT = appartement.IDAPPARTEMENT WHERE contratlocation.IDCONTRAT=".$idValC;
+	$res = odbc_exec($conn,$req);
+	$idtype = odbc_result($res,1);
+	echo $idtype;
+	switch ($idtype) {
+		case 1 :
 	$mois = date('m');
 	$annee = date('Y');
 	if ($mois == 12){
@@ -25,23 +32,40 @@ if (isset($_POST['idValC'])){
 	}else{
 		$mois++;
 	}
-	$deb = '01/'.$mois.'/'.$annee;
-	$req = "SELECT IDTYPE FROM dbo.appartement app, dbo.contratlocation con WHERE con.IDAPPARTEMENT = app.IDAPPARTEMENT AND con.IDCONTRAT = $idValC";
-	$res = odbc_exec($conn, $req);
-	$type = odbc_result($res, 1);
-
-	$fin = '31/06/';
-	if($type == 1){
+		$deb = '01/'.$mois.'/'.$annee;
 		$annee = $annee + 3;
 		$fin = '01/'.$mois.'/'.$annee;
-	}else if ($type == 3){
-		$annee = $annee + 1;
-		$fin = $fin = '31/06/'.$annee;
+	break;
+		case 2 :
+		$req = "SELECT IDPLAGE FROM paiement INNER JOIN contratlocation ON paiement.IDCONTRAT = contratlocation.IDCONTRAT WHERE contratlocation.IDCONTRAT=".$idValC; 
+		$res = odbc_exec($conn, $req);
+		$plage = odbc_result($res, 1);
+		$deb = getDebutSemaine($plage);
+		$fin = getFinSemaine($plage);
+		break;
+		case 3 :
+		$req = "SELECT IDPLAGE FROM paiement INNER JOIN contratlocation ON paiement.IDCONTRAT = contratlocation.IDCONTRAT WHERE contratlocation.IDCONTRAT=".$idValC; 
+		$res = odbc_exec($conn, $req);
+		$plage = odbc_result($res, 1);
+		if ($plage) {
+		$deb = getDebutSemaine($s);
+		$fin = getFinSemaine($s);
+		}
+		else {
+			$mois = date('m');
+			$annee = date('Y');
+			$deb = '01/'.$mois.'/'.$annee;
+			$annee = $annee + 1;
+			$fin = $fin = '31/06/'.$annee; 
+		}
+		break;
+		default : 
+		break;
 	}
-	$req = "UPDATE dbo.contrat_a_valider SET DATEDEBUTLOC = convert(datetime, '$deb', 101) WHERE IDCONTRAT = $idValC";
-	$res = odbc_exec($conn, $req);
-	$req = "UPDATE dbo.contrat_a_valider SET DATEFINLOC = convert(datetime, '$fin', 101) WHERE IDCONTRAT = $idValC";
-	$res = odbc_exec($conn, $req);
+		$req = "UPDATE dbo.contrat_a_valider SET DATEFINLOC = convert(datetime, '$deb', 103) WHERE IDCONTRAT = $idValC";
+		$res = odbc_exec($conn, $req); 
+		$req = "UPDATE dbo.contrat_a_valider SET DATEFINLOC = convert(datetime, '$fin', 103) WHERE IDCONTRAT = $idValC";
+		$res = odbc_exec($conn, $req);
 }
 if (isset($_POST['idSupC'])){
 	$idSupC = (is_numeric($_POST['idSupC']) ? (int)$_POST['idSupC'] : 0);
@@ -81,9 +105,9 @@ if (isset($_POST['idValO'])){
 		$annee = $annee + 1;
 		$fin = $fin = '31/06/'.$annee;
 	}
-	$req = "UPDATE dbo.contrat_a_valider SET DATEDEBUTLOC = convert(datetime, '$deb', 101) WHERE IDCONTRAT = $idValO";
+	$req = "UPDATE dbo.contrat_a_valider SET DATEDEBUTLOC = convert(datetime, '$deb', 103) WHERE IDCONTRAT = $idValO";
 	$res = odbc_exec($conn, $req);
-	$req = "UPDATE dbo.contrat_a_valider SET DATEFINLOC = convert(datetime, '$fin', 101) WHERE IDCONTRAT = $idValO";
+	$req = "UPDATE dbo.contrat_a_valider SET DATEFINLOC = convert(datetime, '$fin', 103) WHERE IDCONTRAT = $idValO";
 	$res = odbc_exec($conn, $req);
 }
 if (isset($_POST['idSupO'])){
